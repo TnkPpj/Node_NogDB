@@ -1,0 +1,1 @@
+cmd_Debug/obj.target/nogdb.node := g++ -shared -pthread -rdynamic -m64  -Wl,-soname=nogdb.node -o Debug/obj.target/nogdb.node -Wl,--start-group Debug/obj.target/nogdb/nogdb.o Debug/obj.target/nogdb/addon.o -Wl,--end-group -lnogdb -latomic

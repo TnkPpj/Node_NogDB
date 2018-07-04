@@ -1,0 +1,1 @@
+cmd_Debug/obj.target/test.node := g++ -shared -pthread -rdynamic -m64  -Wl,-soname=test.node -o Debug/obj.target/test.node -Wl,--start-group Debug/obj.target/test/test.o -Wl,--end-group -lnogdb -latomic
