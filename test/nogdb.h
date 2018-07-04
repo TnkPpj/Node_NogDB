@@ -86,6 +86,138 @@ class NogClassDescriptor : public Nan::ObjectWrap {
   static NAN_GETTER(getAtt) ;
 };
 
+class NogBytes : public Nan::ObjectWrap {
+ public:
+  static NAN_MODULE_INIT(Init) ;
+
+ private:
+  explicit NogBytes() ;
+  ~NogBytes() ;
+
+  static NAN_METHOD(New) ;
+};
+
+class NogRecordId : public Nan::ObjectWrap {
+ public:
+  static NAN_MODULE_INIT(Init) ;
+
+ private:
+  explicit NogRecordId() ;
+  ~NogRecordId() ;
+
+  static NAN_METHOD(New) ;
+};
+
+class NogRecord : public Nan::ObjectWrap {
+ public:
+  static NAN_MODULE_INIT(Init) ;
+
+ private:
+  explicit NogRecord() ;
+  ~NogRecord() ;
+
+  static NAN_METHOD(New) ;
+};
+
+class NogResult : public Nan::ObjectWrap {
+ public:
+  static NAN_MODULE_INIT(Init) ;
+
+ private:
+  explicit NogResult() ;
+  ~NogResult() ;
+
+  static NAN_METHOD(New) ;
+};
+
+class NogResultSetCursor : public Nan::ObjectWrap {
+ public:
+  static NAN_MODULE_INIT(Init) ;
+
+ private:
+  explicit NogResultSetCursor() ;
+  ~NogResultSetCursor() ;
+
+  static NAN_METHOD(New) ;
+};
+
+class NogResultSet : public Nan::ObjectWrap {
+ public:
+  static NAN_MODULE_INIT(Init) ;
+
+ private:
+  explicit NogResultSet() ;
+  ~NogResultSet() ;
+
+  static NAN_METHOD(New) ;
+};
+
+class NogCondition : public Nan::ObjectWrap {
+ public:
+  static NAN_MODULE_INIT(Init) ;
+
+ private:
+  explicit NogCondition() ;
+  ~NogCondition() ;
+
+  static NAN_METHOD(New) ;
+};
+
+class NogMultiCondition : public Nan::ObjectWrap {
+ public:
+  static NAN_MODULE_INIT(Init) ;
+
+ private:
+  explicit NogMultiCondition() ;
+  ~NogMultiCondition() ;
+
+  static NAN_METHOD(New) ;
+};
+
+class NogPathFilter : public Nan::ObjectWrap {
+ public:
+  static NAN_MODULE_INIT(Init) ;
+
+ private:
+  explicit NogPathFilter() ;
+  ~NogPathFilter() ;
+
+  static NAN_METHOD(New) ;
+};
+
+class NogClassFilter : public Nan::ObjectWrap {
+ public:
+  static NAN_MODULE_INIT(Init) ;
+
+ private:
+  explicit NogClassFilter() ;
+  ~NogClassFilter() ;
+
+  static NAN_METHOD(New) ;
+};
+
+class NogPropertyDescriptor : public Nan::ObjectWrap {
+ public:
+  static NAN_MODULE_INIT(Init) ;
+
+ private:
+  explicit NogPropertyDescriptor() ;
+  ~NogPropertyDescriptor() ;
+
+  static NAN_METHOD(New) ;
+};
+
+class NogRecordDescriptor : public Nan::ObjectWrap {
+ public:
+  static NAN_MODULE_INIT(Init) ;
+
+ private:
+  explicit NogRecordDescriptor() ;
+  ~NogRecordDescriptor() ;
+
+  static NAN_METHOD(New) ;
+};
+
 // class NogdbClass : public Nan::ObjectWrap {
 //  public:
 //   static NAN_MODULE_INIT(Init) ;
