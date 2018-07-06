@@ -1,7 +1,12 @@
 #include <nan.h>
-
 #include <nogdb/nogdb.h>
-#include "nogdb.h"
+
+#include "classFilter.hpp"
+#include "pathFilter.hpp"
+#include "recordDescriptor.hpp"
+#include "resultSet.hpp"
+#include "resultSetCursor.hpp"
+#include "txn.hpp"
 
 void InEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);

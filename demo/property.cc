@@ -10,13 +10,13 @@ void Add(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe2.ToLocalChecked());
 
-  v8::String::Utf8Value val(info[2]->ToString());
+  Nan::Utf8String val(info[2]->ToString());
   std::string className (*val);
 
-  v8::String::Utf8Value val2(info[3]->ToString());
+  Nan::Utf8String val2(info[3]->ToString());
   std::string propertyName (*val2);
 
-  v8::String::Utf8Value val3(info[4]->ToString());
+  Nan::Utf8String val3(info[4]->ToString());
   std::string type (*val3);
 
   // info.GetReturnValue().Set(num);
@@ -26,13 +26,13 @@ void Alter(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe1.ToLocalChecked());
   
-  v8::String::Utf8Value val(info[1]->ToString());
+  Nan::Utf8String val(info[1]->ToString());
   std::string className (*val);
 
-  v8::String::Utf8Value val2(info[2]->ToString());
+  Nan::Utf8String val2(info[2]->ToString());
   std::string oldName (*val2);
 
-  v8::String::Utf8Value val3(info[3]->ToString());
+  Nan::Utf8String val3(info[3]->ToString());
   std::string newName (*val3);
 
   // info.GetReturnValue().Set(num);
@@ -42,10 +42,10 @@ void Remove(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe1.ToLocalChecked());
   
-  v8::String::Utf8Value val(info[1]->ToString());
+  Nan::Utf8String val(info[1]->ToString());
   std::string className (*val);
 
-  v8::String::Utf8Value val2(info[2]->ToString());
+  Nan::Utf8String val2(info[2]->ToString());
   std::string propertyName (*val2);
 
   // info.GetReturnValue().Set(num);
@@ -55,10 +55,10 @@ void CreateIndex(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe1.ToLocalChecked());
   
-  v8::String::Utf8Value val(info[1]->ToString());
+  Nan::Utf8String val(info[1]->ToString());
   std::string ClassName (*val);
 
-  v8::String::Utf8Value val2(info[2]->ToString());
+  Nan::Utf8String val2(info[2]->ToString());
   std::string propertyName (*val2);
 
   bool isUnique = info[3]->BooleanValue();
@@ -70,10 +70,10 @@ void DropIndex(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe1.ToLocalChecked());
   
-  v8::String::Utf8Value val(info[1]->ToString());
+  Nan::Utf8String val(info[1]->ToString());
   std::string ClassName (*val);
 
-  v8::String::Utf8Value val2(info[2]->ToString());
+  Nan::Utf8String val2(info[2]->ToString());
   std::string propertyName (*val2);
 
   // info.GetReturnValue().Set(num);

@@ -1,7 +1,11 @@
 #include <nan.h>
-
 #include <nogdb/nogdb.h>
-#include "nogdb.h"
+
+#include "classDescriptor.hpp"
+#include "dbInfo.hpp"
+#include "record.hpp"
+#include "recordDescriptor.hpp"
+#include "txn.hpp"
 
 void GetDbInfo(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
@@ -20,7 +24,7 @@ void GetSchema(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe2.ToLocalChecked());
   
-  v8::String::Utf8Value val(info[2]->ToString());
+  Nan::Utf8String val(info[2]->ToString());
   std::string className (*val);
 
   // info.GetReturnValue().Set(num);
