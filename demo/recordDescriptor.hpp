@@ -12,6 +12,8 @@ class NogRecordDescriptor : public Nan::ObjectWrap {
         static NAN_MODULE_INIT(Init) ;
         static Persistent<v8::FunctionTemplate> constructor;
 
+        nogdb::RecordDescriptor recordDescriptor;
+
     private:
         explicit NogRecordDescriptor() ;
         ~NogRecordDescriptor() ;

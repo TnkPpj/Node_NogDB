@@ -2,7 +2,6 @@
 #define TXN_H
 
 #include <nan.h>
-#include <string>
 #include <nogdb/nogdb.h>
 
 using namespace Nan;

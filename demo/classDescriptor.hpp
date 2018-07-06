@@ -12,7 +12,7 @@ class NogClassDescriptor : public Nan::ObjectWrap {
         static NAN_MODULE_INIT(Init) ;
         static Persistent<v8::FunctionTemplate> constructor;
 
-        nogdb::ClassDescriptor& classDesc;
+        nogdb::ClassDescriptor& classDescriptor;
 
     private:
         explicit NogClassDescriptor() ;

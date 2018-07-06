@@ -4,6 +4,38 @@
 #include "nogdb.h"
 
 void Add(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=5){
+        Nan::ThrowError("5 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> propertyDescriptorType = Nan::New<v8::FunctionTemplate>(NogPropertyDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+
+  if(!propertyDescriptorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: PropertyDescriptor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!info[2]->IsString()){
+        Nan::ThrowError("arg3: string required");
+        return;
+  }
+  if(!info[3]->IsString()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsString()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogPropertyDescriptor* propDesc = ObjectWrap::Unwrap<NogPropertyDescriptor>(maybe1.ToLocalChecked());
 
@@ -23,6 +55,32 @@ void Add(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void Alter(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=4){
+        Nan::ThrowError("4 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+
+  if(!txnType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: Txn required");
+    return;
+  }
+  if(!info[1]->IsString()){
+        Nan::ThrowError("arg2: string required");
+        return;
+  }
+  if(!info[2]->IsString()){
+        Nan::ThrowError("arg3: string required");
+        return;
+  }
+  if(!info[3]->IsString()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe1.ToLocalChecked());
   
@@ -39,6 +97,34 @@ void Alter(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void Remove(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=5){
+        Nan::ThrowError("5 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> propertyDescriptorType = Nan::New<v8::FunctionTemplate>(NogPropertyDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+
+  if(!propertyDescriptorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: PropertyDescriptor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!info[2]->IsString()){
+        Nan::ThrowError("arg3: string required");
+        return;
+  }
+  if(!info[3]->IsString()){
+        Nan::ThrowError("arg3: string required");
+        return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe1.ToLocalChecked());
   

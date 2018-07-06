@@ -11,6 +11,8 @@ class NogPathFilter : public Nan::ObjectWrap {
     public:
         static NAN_MODULE_INIT(Init) ;
         static Persistent<v8::FunctionTemplate> constructor;
+        
+        nogdb::PathFilter pathFilter;
 
     private:
         explicit NogPathFilter() ;

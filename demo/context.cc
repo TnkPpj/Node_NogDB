@@ -1,5 +1,4 @@
 #include <nan.h>
-#include <string>
 #include <nogdb/nogdb.h>
 
 #include "context.hpp"
@@ -26,6 +25,14 @@ NAN_MODULE_INIT(NogContext::Init) {
 }
 
 NAN_METHOD(NogContext::New) {
+    if(info.Length()!=1){
+        Nan::ThrowError("1 arguments required :( String )");
+        return;
+    }
+    if(!info[0]->IsString()){
+        Nan::ThrowError("arg1 string required");
+        return;
+    }
     Nan::Utf8String val(info[0]->ToString());
     std::string dbname (*val);
     NogContext* obj = new NogContext(dbname);

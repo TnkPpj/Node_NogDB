@@ -1,5 +1,4 @@
 #include <nan.h>
-#include <string>
 #include <nogdb/nogdb.h>
 
 #include "txn.hpp"
@@ -28,14 +27,21 @@ NAN_MODULE_INIT(NogTxn::Init) {
 }
 
 NAN_METHOD(NogTxn::New) {
-//       if(info.Length()==2){
-    v8::Handle<v8::Object> fromObj = info[0]->ToObject();
-    v8::Local<v8::FunctionTemplate> constructorHandle = Nan::New<v8::FunctionTemplate>(NogContext::constructor);
-
-    std::cout << constructorHandle->HasInstance(fromObj) << std::endl;
-//   }
+    if(info.Length()!=2){
+        Nan::ThrowError("2 arguments required :(Context{},\"READ_WRITE\"\\\"READ_ONLY\")");
+        return;
+    }
+    v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+    v8::Local<v8::FunctionTemplate> contextType = Nan::New<v8::FunctionTemplate>(NogContext::constructor);
+    if(!contextType->HasInstance(arg_1)){
+        Nan::ThrowError("arg1: Context required");
+        return;
+    }
+    if(!info[1]->IsString()){
+        Nan::ThrowError("arg2: string required");
+        return;
+    }
     Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
-    std::cout << info.Length() << std::endl;
     NogContext* obj = ObjectWrap::Unwrap<NogContext>(maybe1.ToLocalChecked());
     nogdb::Context ctx = obj->ctx;
     Nan::Utf8String val(info[1]->ToString());
