@@ -9,6 +9,52 @@
 #include "txn.hpp"
 
 void InEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=7){
+        Nan::ThrowError("7 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetType = Nan::New<v8::FunctionTemplate>(NogResultSet::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+  v8::Handle<v8::Object> arg_7 = info[6]->ToObject();
+
+  if(!resultSetType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSet required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!info[3]->IsUint32()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsUint32()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+  if(!pathFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_7)){
+    Nan::ThrowError("arg7: classFilter required");
+    return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -32,6 +78,51 @@ void InEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void InEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=7){
+        Nan::ThrowError("7 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetCursorType = Nan::New<v8::FunctionTemplate>(NogResultSetCursor::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+  v8::Handle<v8::Object> arg_7 = info[6]->ToObject();
+
+  if(!resultSetCursorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSetCursor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!info[3]->IsUint32()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsUint32()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+  if(!pathFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_7)){
+    Nan::ThrowError("arg7: classFilter required");
+    return;
+  }
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -55,6 +146,51 @@ void InEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void OutEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=7){
+        Nan::ThrowError("7 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetType = Nan::New<v8::FunctionTemplate>(NogResultSet::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+  v8::Handle<v8::Object> arg_7 = info[6]->ToObject();
+
+  if(!resultSetType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSet required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!info[3]->IsUint32()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsUint32()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+  if(!pathFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_7)){
+    Nan::ThrowError("arg7: classFilter required");
+    return;
+  }
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -78,6 +214,51 @@ void OutEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void OutEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=7){
+        Nan::ThrowError("7 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetCursorType = Nan::New<v8::FunctionTemplate>(NogResultSetCursor::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+  v8::Handle<v8::Object> arg_7 = info[6]->ToObject();
+
+  if(!resultSetCursorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSetCursor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!info[3]->IsUint32()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsUint32()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+  if(!pathFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_7)){
+    Nan::ThrowError("arg7: classFilter required");
+    return;
+  }
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -101,6 +282,51 @@ void OutEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void AllEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=7){
+        Nan::ThrowError("7 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetType = Nan::New<v8::FunctionTemplate>(NogResultSet::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+  v8::Handle<v8::Object> arg_7 = info[6]->ToObject();
+
+  if(!resultSetType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSet required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!info[3]->IsUint32()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsUint32()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+  if(!pathFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_7)){
+    Nan::ThrowError("arg7: classFilter required");
+    return;
+  }
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -124,6 +350,51 @@ void AllEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void AllEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=7){
+        Nan::ThrowError("7 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetCursorType = Nan::New<v8::FunctionTemplate>(NogResultSetCursor::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+  v8::Handle<v8::Object> arg_7 = info[6]->ToObject();
+
+  if(!resultSetCursorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSetCursor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!info[3]->IsUint32()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsUint32()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+  if(!pathFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_7)){
+    Nan::ThrowError("arg7: classFilter required");
+    return;
+  }
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -147,6 +418,51 @@ void AllEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void InEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=7){
+        Nan::ThrowError("7 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetType = Nan::New<v8::FunctionTemplate>(NogResultSet::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+  v8::Handle<v8::Object> arg_7 = info[6]->ToObject();
+
+  if(!resultSetType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSet required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!info[3]->IsUint32()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsUint32()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+  if(!pathFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_7)){
+    Nan::ThrowError("arg7: classFilter required");
+    return;
+  }
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -170,6 +486,51 @@ void InEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void InEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=7){
+        Nan::ThrowError("7 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetCursorType = Nan::New<v8::FunctionTemplate>(NogResultSetCursor::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+  v8::Handle<v8::Object> arg_7 = info[6]->ToObject();
+
+  if(!resultSetCursorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSetCursor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!info[3]->IsUint32()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsUint32()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+  if(!pathFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_7)){
+    Nan::ThrowError("arg7: classFilter required");
+    return;
+  }
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -193,6 +554,51 @@ void InEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void OutEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=7){
+        Nan::ThrowError("7 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetType = Nan::New<v8::FunctionTemplate>(NogResultSet::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+  v8::Handle<v8::Object> arg_7 = info[6]->ToObject();
+
+  if(!resultSetType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSet required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!info[3]->IsUint32()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsUint32()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+  if(!pathFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_7)){
+    Nan::ThrowError("arg7: classFilter required");
+    return;
+  }
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -216,6 +622,51 @@ void OutEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void OutEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=7){
+        Nan::ThrowError("7 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetCursorType = Nan::New<v8::FunctionTemplate>(NogResultSetCursor::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+  v8::Handle<v8::Object> arg_7 = info[6]->ToObject();
+
+  if(!resultSetCursorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSetCursor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!info[3]->IsUint32()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsUint32()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+  if(!pathFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_7)){
+    Nan::ThrowError("arg7: classFilter required");
+    return;
+  }
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -239,6 +690,51 @@ void OutEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void AllEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=7){
+        Nan::ThrowError("7 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetType = Nan::New<v8::FunctionTemplate>(NogResultSet::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+  v8::Handle<v8::Object> arg_7 = info[6]->ToObject();
+
+  if(!resultSetType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSet required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!info[3]->IsUint32()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsUint32()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+  if(!pathFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_7)){
+    Nan::ThrowError("arg7: classFilter required");
+    return;
+  }
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -262,6 +758,51 @@ void AllEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void AllEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=7){
+        Nan::ThrowError("7 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetCursorType = Nan::New<v8::FunctionTemplate>(NogResultSetCursor::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+  v8::Handle<v8::Object> arg_7 = info[6]->ToObject();
+
+  if(!resultSetCursorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSetCursor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!info[3]->IsUint32()){
+        Nan::ThrowError("arg4: string required");
+        return;
+  }
+  if(!info[4]->IsUint32()){
+        Nan::ThrowError("arg5: string required");
+        return;
+  }
+  if(!pathFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_7)){
+    Nan::ThrowError("arg7: classFilter required");
+    return;
+  }
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -285,6 +826,49 @@ void AllEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void ShortestPath(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=6){
+        Nan::ThrowError("6 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetType = Nan::New<v8::FunctionTemplate>(NogResultSet::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_4 = info[3]->ToObject();
+  v8::Handle<v8::Object> arg_5 = info[4]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+
+  if(!resultSetType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSet required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_4)){
+    Nan::ThrowError("arg4: RecordDescriptor required");
+    return;
+  }
+  if(!pathFilterType->HasInstance(arg_5)){
+    Nan::ThrowError("arg5: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: classFilter required");
+    return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -307,6 +891,48 @@ void ShortestPath(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void ShortestPathCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=6){
+        Nan::ThrowError("6 arguments required");
+        return;
+  }
+  v8::Local<v8::FunctionTemplate> resultSetCursorType = Nan::New<v8::FunctionTemplate>(NogResultSetCursor::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+  v8::Local<v8::FunctionTemplate> pathFilterType = Nan::New<v8::FunctionTemplate>(NogPathFilter::constructor);
+  v8::Local<v8::FunctionTemplate> classFilterType = Nan::New<v8::FunctionTemplate>(NogClassFilter::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+  v8::Handle<v8::Object> arg_4 = info[3]->ToObject();
+  v8::Handle<v8::Object> arg_5 = info[4]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+
+  if(!resultSetCursorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSetCursor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_4)){
+    Nan::ThrowError("arg4: RecordDescriptor required");
+    return;
+  }
+  if(!pathFilterType->HasInstance(arg_5)){
+    Nan::ThrowError("arg5: PathFilter required");
+    return;
+  }
+  if(!classFilterType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: classFilter required");
+    return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 

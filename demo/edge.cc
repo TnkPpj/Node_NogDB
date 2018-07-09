@@ -9,6 +9,30 @@
 #include "txn.hpp"
 
 void Get(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=3){
+        Nan::ThrowError("3 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetType = Nan::New<v8::FunctionTemplate>(NogResultSet::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+
+  if(!resultSetType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSet required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!info[2]->IsString()){
+        Nan::ThrowError("arg3: string required");
+        return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -22,6 +46,30 @@ void Get(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void GetCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=3){
+        Nan::ThrowError("3 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetCursorType = Nan::New<v8::FunctionTemplate>(NogResultSetCursor::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+
+  if(!resultSetCursorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSetCursor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!info[2]->IsString()){
+        Nan::ThrowError("arg3: string required");
+        return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -35,6 +83,32 @@ void GetCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void GetSrc(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=3){
+        Nan::ThrowError("3 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetType = Nan::New<v8::FunctionTemplate>(NogResultSet::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+
+  if(!resultSetType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSet required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -48,6 +122,32 @@ void GetSrc(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void GetDst(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=3){
+        Nan::ThrowError("3 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetType = Nan::New<v8::FunctionTemplate>(NogResultSet::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+
+  if(!resultSetType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSet required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResult* result = ObjectWrap::Unwrap<NogResult>(maybe1.ToLocalChecked());
 
@@ -61,6 +161,32 @@ void GetDst(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void GetSrcDst(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=3){
+        Nan::ThrowError("3 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> resultSetType = Nan::New<v8::FunctionTemplate>(NogResultSet::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+
+  if(!resultSetType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: ResultSet required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: RecordDescriptor required");
+    return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResult* result = ObjectWrap::Unwrap<NogResult>(maybe1.ToLocalChecked());
 
@@ -74,6 +200,46 @@ void GetSrcDst(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void Create(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=6){
+        Nan::ThrowError("6 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> recordType = Nan::New<v8::FunctionTemplate>(NogRecord::constructor);
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_4 = info[3]->ToObject();
+  v8::Handle<v8::Object> arg_5 = info[4]->ToObject();
+  v8::Handle<v8::Object> arg_6 = info[5]->ToObject();
+
+  if(!recordDescriptorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: RecordDescriptor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!info[2]->IsString()){
+        Nan::ThrowError("arg3: string required");
+        return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_4)){
+    Nan::ThrowError("arg4: RecordDescriptor required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_5)){
+    Nan::ThrowError("arg5: RecordDescriptor required");
+    return;
+  }
+  if(!recordType->HasInstance(arg_6)){
+    Nan::ThrowError("arg6: Record required");
+    return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogRecordDescriptor* recordDesc = ObjectWrap::Unwrap<NogRecordDescriptor>(maybe1.ToLocalChecked());
 
@@ -96,6 +262,32 @@ void Create(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void Update(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=6){
+        Nan::ThrowError("6 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordType = Nan::New<v8::FunctionTemplate>(NogRecord::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+
+  if(!recordDescriptorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: RecordDescriptor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!record->HasInstance(arg_3)){
+    Nan::ThrowError("arg3: Record required");
+    return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe1.ToLocalChecked());
 
@@ -109,6 +301,31 @@ void Update(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void UpdateSrc(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=6){
+        Nan::ThrowError("6 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+
+  if(!recordDescriptorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: RecordDescriptor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: RecordDescriptor required");
+    return;
+  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe1.ToLocalChecked());
 
@@ -135,6 +352,31 @@ void UpdateDst(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void Destroy(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+  if(info.Length()!=6){
+        Nan::ThrowError("6 arguments required");
+        return;
+  }
+  
+  v8::Local<v8::FunctionTemplate> txnType = Nan::New<v8::FunctionTemplate>(NogTxn::constructor);
+  v8::Local<v8::FunctionTemplate> recordDescriptorType = Nan::New<v8::FunctionTemplate>(NogRecordDescriptor::constructor);
+
+  v8::Handle<v8::Object> arg_1 = info[0]->ToObject();
+  v8::Handle<v8::Object> arg_2 = info[1]->ToObject();
+  v8::Handle<v8::Object> arg_3 = info[2]->ToObject();
+
+  if(!recordDescriptorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: RecordDescriptor required");
+    return;
+  }
+  if(!txnType->HasInstance(arg_2)){
+    Nan::ThrowError("arg2: Txn required");
+    return;
+  }
+  if(!recordDescriptorType->HasInstance(arg_1)){
+    Nan::ThrowError("arg1: RecordDescriptor required");
+    return;
+  }
+  
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe1.ToLocalChecked());
 
