@@ -3,9 +3,6 @@
     {
       "target_name": "nogdb",
       "sources": [ 
-          # "nogdb.cc",
-
-
           # "bytes.cc",
           # "classDescriptor.cc",
           # "classFilter.cc",

@@ -39,7 +39,7 @@ void Get(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe2.ToLocalChecked());
 
-  v8::String::Utf8Value val(info[2]->ToString());
+  Nan::Utf8String val(info[2]->ToString());
   std::string className (*val);
 
   // info.GetReturnValue().Set(num);
@@ -76,7 +76,7 @@ void GetCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe2.ToLocalChecked());
 
-  v8::String::Utf8Value val(info[2]->ToString());
+  Nan::Utf8String val(info[2]->ToString());
   std::string className (*val);
 
   // info.GetReturnValue().Set(num);
@@ -246,7 +246,7 @@ void Create(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
   NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe2.ToLocalChecked());
 
-  v8::String::Utf8Value val(info[2]->ToString());
+  Nan::Utf8String val(info[2]->ToString());
   std::string className (*val);
 
   Nan::MaybeLocal<v8::Object> maybe3 = Nan::To<v8::Object>(info[3]);
@@ -283,7 +283,7 @@ void Update(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     Nan::ThrowError("arg2: Txn required");
     return;
   }
-  if(!record->HasInstance(arg_3)){
+  if(!recordType->HasInstance(arg_3)){
     Nan::ThrowError("arg3: Record required");
     return;
   }

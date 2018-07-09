@@ -19,6 +19,10 @@ class NogClassFilter : public Nan::ObjectWrap {
         ~NogClassFilter() ;
 
         static NAN_METHOD(New) ;
+        static NAN_METHOD(add) ;
+        static NAN_METHOD(remove) ;
+        static NAN_METHOD(size) ;
+        static NAN_METHOD(empty) ;
 };
 
 #endif

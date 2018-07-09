@@ -1,7 +1,8 @@
 #include <nan.h>
 
 #include <nogdb/nogdb.h>
-#include "nogdb.h"
+#include "propertyDescriptor.hpp"
+#include "txn.hpp"
 
 void Add(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   if(info.Length()!=5){

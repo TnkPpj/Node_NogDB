@@ -1,5 +1,4 @@
 #include <nan.h>
-// #include "nogdb.h"
 
 #include "bytes.hpp"
 #include "classDescriptor.hpp"
@@ -19,8 +18,6 @@
 #include "txn.hpp"
 
 void InitAll(v8::Local<v8::Object> exports) {
-  // NogdbTest::Init(exports);
-
   // NogBytes::Init(exports);
   // NogClassDescriptor::Init(exports);
   // NogClassFilter::Init(exports);
