@@ -12,7 +12,7 @@ class NogResultSet : public Nan::ObjectWrap {
         static NAN_MODULE_INIT(Init) ;
         static Persistent<v8::FunctionTemplate> constructor;
 
-        nogdb::ResultSet resultSet;
+        nogdb::ResultSet& resultSet;
 
     private:
         explicit NogResultSet() ;

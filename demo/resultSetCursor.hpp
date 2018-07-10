@@ -12,7 +12,7 @@ class NogResultSetCursor : public Nan::ObjectWrap {
         static NAN_MODULE_INIT(Init) ;
         static Persistent<v8::FunctionTemplate> constructor;
 
-        nogdb::ResultSetCursor resultSetCursor();
+        nogdb::ResultSetCursor& resultSetCursor;
 
     private:
         explicit NogResultSetCursor() ;

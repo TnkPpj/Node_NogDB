@@ -9,8 +9,8 @@
 #include "txn.hpp"
 
 void InEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=7){
-        Nan::ThrowError("7 arguments required");
+  if(info.Length()!=7&&info.Length()!=6){
+        Nan::ThrowError("7 or 6 arguments required");
         return;
   }
   
@@ -46,14 +46,6 @@ void InEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         Nan::ThrowError("arg5: string required");
         return;
   }
-  if(!pathFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_7)){
-    Nan::ThrowError("arg7: classFilter required");
-    return;
-  }
 
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
@@ -68,18 +60,51 @@ void InEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int maxDepth = info[4]->IntegerValue();
 
-  Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
+  if(info.Length()==6){
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+      resultSet->resultSet = nogdb::Traverse::inEdgeBfs(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,classFilter->classFilter);
+      // ResultSet Traverse::inEdgeBfs(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const ClassFilter &classFilter)
+  } else if (info.Length()==7){
+      if(!pathFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_7)){
+          Nan::ThrowError("arg7: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+
+      resultSet->resultSet = nogdb::Traverse::inEdgeBfs(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,pathFilter->pathFilter,
+                                                        classFilter->classFilter);
+      // ResultSet Traverse::inEdgeBfs(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const PathFilter &pathFilter,
+      //                                 const ClassFilter &classFilter)
+  }
 }
 
 void InEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=7){
-        Nan::ThrowError("7 arguments required");
+  if(info.Length()!=7&&info.Length()!=6){
+        Nan::ThrowError("7 or 6 arguments required");
         return;
   }
   
@@ -115,14 +140,7 @@ void InEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         Nan::ThrowError("arg5: string required");
         return;
   }
-  if(!pathFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_7)){
-    Nan::ThrowError("arg7: classFilter required");
-    return;
-  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -136,18 +154,51 @@ void InEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int maxDepth = info[4]->IntegerValue();
 
-  Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
+  if(info.Length()==6){
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+      resultSetCursor->resultSetCursor = nogdb::Traverse::inEdgeBfsCursor(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,classFilter->classFilter);
+      // ResultSetCursor Traverse::inEdgeBfsCursor(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const ClassFilter &classFilter)
+  } else if (info.Length()==7){
+      if(!pathFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_7)){
+          Nan::ThrowError("arg7: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+
+      resultSetCursor->resultSetCursor = nogdb::Traverse::inEdgeBfsCursor(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,pathFilter->pathFilter,
+                                                        classFilter->classFilter);
+      // ResultSetCursor Traverse::inEdgeBfsCursor(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const PathFilter &pathFilter,
+      //                                 const ClassFilter &classFilter)
+  }
 }
 
 void OutEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=7){
-        Nan::ThrowError("7 arguments required");
+  if(info.Length()!=7&&info.Length()!=6){
+        Nan::ThrowError("7 or 6 arguments required");
         return;
   }
   
@@ -183,14 +234,7 @@ void OutEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         Nan::ThrowError("arg5: string required");
         return;
   }
-  if(!pathFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_7)){
-    Nan::ThrowError("arg7: classFilter required");
-    return;
-  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -204,18 +248,51 @@ void OutEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int maxDepth = info[4]->IntegerValue();
 
-  Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
+  if(info.Length()==6){
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+      resultSet->resultSet = nogdb::Traverse::outEdgeBfs(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,classFilter->classFilter);
+      // ResultSet Traverse::outEdgeBfs(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const ClassFilter &classFilter)
+  } else if (info.Length()==7){
+      if(!pathFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_7)){
+          Nan::ThrowError("arg7: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+
+      resultSet->resultSet = nogdb::Traverse::outEdgeBfs(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,pathFilter->pathFilter,
+                                                        classFilter->classFilter);
+      // ResultSet Traverse::outEdgeBfs(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const PathFilter &pathFilter,
+      //                                 const ClassFilter &classFilter)
+  }
 }
 
 void OutEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=7){
-        Nan::ThrowError("7 arguments required");
+  if(info.Length()!=7&&info.Length()!=6){
+        Nan::ThrowError("7 or 6 arguments required");
         return;
   }
   
@@ -251,14 +328,7 @@ void OutEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         Nan::ThrowError("arg5: string required");
         return;
   }
-  if(!pathFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_7)){
-    Nan::ThrowError("arg7: classFilter required");
-    return;
-  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -272,18 +342,51 @@ void OutEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int maxDepth = info[4]->IntegerValue();
 
-  Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
+  if(info.Length()==6){
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+      resultSetCursor->resultSetCursor = nogdb::Traverse::outEdgeBfsCursor(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,classFilter->classFilter);
+      // ResultSetCursor Traverse::outEdgeBfsCursor(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const ClassFilter &classFilter)
+  } else if (info.Length()==7){
+      if(!pathFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_7)){
+          Nan::ThrowError("arg7: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+
+      resultSetCursor->resultSetCursor = nogdb::Traverse::outEdgeBfsCursor(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,pathFilter->pathFilter,
+                                                        classFilter->classFilter);
+      // ResultSetCursor Traverse::outEdgeBfsCursor(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const PathFilter &pathFilter,
+      //                                 const ClassFilter &classFilter)
+  }
 }
 
 void AllEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=7){
-        Nan::ThrowError("7 arguments required");
+  if(info.Length()!=7&&info.Length()!=6){
+        Nan::ThrowError("7 or 6 arguments required");
         return;
   }
   
@@ -319,14 +422,7 @@ void AllEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         Nan::ThrowError("arg5: string required");
         return;
   }
-  if(!pathFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_7)){
-    Nan::ThrowError("arg7: classFilter required");
-    return;
-  }
+
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -340,18 +436,51 @@ void AllEdgeBfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int maxDepth = info[4]->IntegerValue();
 
-  Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
+  if(info.Length()==6){
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+      resultSet->resultSet = nogdb::Traverse::allEdgeBfs(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,classFilter->classFilter);
+      // ResultSet Traverse::allEdgeBfs(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const ClassFilter &classFilter)
+  } else if (info.Length()==7){
+      if(!pathFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_7)){
+          Nan::ThrowError("arg7: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+
+      resultSet->resultSet = nogdb::Traverse::allEdgeBfs(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,pathFilter->pathFilter,
+                                                        classFilter->classFilter);
+      // ResultSet Traverse::allEdgeBfs(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const PathFilter &pathFilter,
+      //                                 const ClassFilter &classFilter)
+  }
 }
 
 void AllEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=7){
-        Nan::ThrowError("7 arguments required");
+  if(info.Length()!=7&&info.Length()!=6){
+        Nan::ThrowError("7 or 6 arguments required");
         return;
   }
   
@@ -387,14 +516,7 @@ void AllEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         Nan::ThrowError("arg5: string required");
         return;
   }
-  if(!pathFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_7)){
-    Nan::ThrowError("arg7: classFilter required");
-    return;
-  }
+  
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -408,18 +530,51 @@ void AllEdgeBfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int maxDepth = info[4]->IntegerValue();
 
-  Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
+  if(info.Length()==6){
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+      resultSetCursor->resultSetCursor = nogdb::Traverse::allEdgeBfsCursor(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,classFilter->classFilter);
+      // ResultSetCursor Traverse::allEdgeBfsCursor(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const ClassFilter &classFilter)
+  } else if (info.Length()==7){
+      if(!pathFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_7)){
+          Nan::ThrowError("arg7: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+
+      resultSetCursor->resultSetCursor = nogdb::Traverse::allEdgeBfsCursor(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,pathFilter->pathFilter,
+                                                        classFilter->classFilter);
+      // ResultSetCursor Traverse::allEdgeBfsCursor(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const PathFilter &pathFilter,
+      //                                 const ClassFilter &classFilter)
+  }
 }
 
 void InEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=7){
-        Nan::ThrowError("7 arguments required");
+  if(info.Length()!=7&&info.Length()!=6){
+        Nan::ThrowError("7 or 6 arguments required");
         return;
   }
   
@@ -455,14 +610,7 @@ void InEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         Nan::ThrowError("arg5: string required");
         return;
   }
-  if(!pathFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_7)){
-    Nan::ThrowError("arg7: classFilter required");
-    return;
-  }
+  
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -476,18 +624,51 @@ void InEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int maxDepth = info[4]->IntegerValue();
 
-  Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
+  if(info.Length()==6){
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+      resultSet->resultSet = nogdb::Traverse::inEdgeDfs(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,classFilter->classFilter);
+      // ResultSet Traverse::inEdgeDfs(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const ClassFilter &classFilter)
+  } else if (info.Length()==7){
+      if(!pathFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_7)){
+          Nan::ThrowError("arg7: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+
+      resultSet->resultSet = nogdb::Traverse::inEdgeDfs(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,pathFilter->pathFilter,
+                                                        classFilter->classFilter);
+      // ResultSet Traverse::inEdgeDfs(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const PathFilter &pathFilter,
+      //                                 const ClassFilter &classFilter)
+  }
 }
 
 void InEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=7){
-        Nan::ThrowError("7 arguments required");
+  if(info.Length()!=7&&info.Length()!=6){
+        Nan::ThrowError("7 or 6 arguments required");
         return;
   }
   
@@ -523,14 +704,7 @@ void InEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         Nan::ThrowError("arg5: string required");
         return;
   }
-  if(!pathFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_7)){
-    Nan::ThrowError("arg7: classFilter required");
-    return;
-  }
+  
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -544,18 +718,51 @@ void InEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int maxDepth = info[4]->IntegerValue();
 
-  Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
+  if(info.Length()==6){
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+      resultSetCursor->resultSetCursor = nogdb::Traverse::inEdgeDfsCursor(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,classFilter->classFilter);
+      // ResultSetCursor Traverse::inEdgeDfsCursor(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const ClassFilter &classFilter)
+  } else if (info.Length()==7){
+      if(!pathFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_7)){
+          Nan::ThrowError("arg7: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+
+      resultSetCursor->resultSetCursor = nogdb::Traverse::inEdgeDfsCursor(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,pathFilter->pathFilter,
+                                                        classFilter->classFilter);
+      // ResultSetCursor Traverse::inEdgeDfsCursor(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const PathFilter &pathFilter,
+      //                                 const ClassFilter &classFilter)
+  }
 }
 
 void OutEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=7){
-        Nan::ThrowError("7 arguments required");
+  if(info.Length()!=7&&info.Length()!=6){
+        Nan::ThrowError("7 or 6 arguments required");
         return;
   }
   
@@ -591,14 +798,7 @@ void OutEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         Nan::ThrowError("arg5: string required");
         return;
   }
-  if(!pathFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_7)){
-    Nan::ThrowError("arg7: classFilter required");
-    return;
-  }
+  
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -612,18 +812,51 @@ void OutEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int maxDepth = info[4]->IntegerValue();
 
-  Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
+  if(info.Length()==6){
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+      resultSet->resultSet = nogdb::Traverse::outEdgeDfs(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,classFilter->classFilter);
+      // ResultSet Traverse::outEdgeDfs(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const ClassFilter &classFilter)
+  } else if (info.Length()==7){
+      if(!pathFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_7)){
+          Nan::ThrowError("arg7: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+
+      resultSet->resultSet = nogdb::Traverse::outEdgeDfs(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,pathFilter->pathFilter,
+                                                        classFilter->classFilter);
+      // ResultSet Traverse::outEdgeDfs(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const PathFilter &pathFilter,
+      //                                 const ClassFilter &classFilter)
+  }
 }
 
 void OutEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=7){
-        Nan::ThrowError("7 arguments required");
+  if(info.Length()!=7&&info.Length()!=6){
+        Nan::ThrowError("7 or 6 arguments required");
         return;
   }
   
@@ -659,14 +892,7 @@ void OutEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         Nan::ThrowError("arg5: string required");
         return;
   }
-  if(!pathFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_7)){
-    Nan::ThrowError("arg7: classFilter required");
-    return;
-  }
+  
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -680,18 +906,51 @@ void OutEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int maxDepth = info[4]->IntegerValue();
 
-  Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
+  if(info.Length()==6){
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+      resultSetCursor->resultSetCursor = nogdb::Traverse::outEdgeDfsCursor(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,classFilter->classFilter);
+      // ResultSetCursor Traverse::outEdgeDfsCursor(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const ClassFilter &classFilter)
+  } else if (info.Length()==7){
+      if(!pathFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_7)){
+          Nan::ThrowError("arg7: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+
+      resultSetCursor->resultSetCursor = nogdb::Traverse::outEdgeDfsCursor(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,pathFilter->pathFilter,
+                                                        classFilter->classFilter);
+      // ResultSetCursor Traverse::outEdgeDfsCursor(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const PathFilter &pathFilter,
+      //                                 const ClassFilter &classFilter)
+  }
 }
 
 void AllEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=7){
-        Nan::ThrowError("7 arguments required");
+  if(info.Length()!=7&&info.Length()!=6){
+        Nan::ThrowError("7 or 6 arguments required");
         return;
   }
   
@@ -727,14 +986,7 @@ void AllEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         Nan::ThrowError("arg5: string required");
         return;
   }
-  if(!pathFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_7)){
-    Nan::ThrowError("arg7: classFilter required");
-    return;
-  }
+  
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
 
@@ -748,18 +1000,51 @@ void AllEdgeDfs(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int maxDepth = info[4]->IntegerValue();
 
-  Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
+  if(info.Length()==6){
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+      resultSet->resultSet = nogdb::Traverse::allEdgeDfs(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,classFilter->classFilter);
+      // ResultSet Traverse::allEdgeDfs(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const ClassFilter &classFilter)
+  } else if (info.Length()==7){
+      if(!pathFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_7)){
+          Nan::ThrowError("arg7: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+
+      resultSet->resultSet = nogdb::Traverse::allEdgeDfs(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,pathFilter->pathFilter,
+                                                        classFilter->classFilter);
+      // ResultSet Traverse::allEdgeDfs(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const PathFilter &pathFilter,
+      //                                 const ClassFilter &classFilter)
+  }
 }
 
 void AllEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=7){
-        Nan::ThrowError("7 arguments required");
+  if(info.Length()!=7&&info.Length()!=6){
+        Nan::ThrowError("7 or 6 arguments required");
         return;
   }
   
@@ -795,14 +1080,7 @@ void AllEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         Nan::ThrowError("arg5: string required");
         return;
   }
-  if(!pathFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_7)){
-    Nan::ThrowError("arg7: classFilter required");
-    return;
-  }
+  
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
 
@@ -816,18 +1094,51 @@ void AllEdgeDfsCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int maxDepth = info[4]->IntegerValue();
 
-  Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
+  if(info.Length()==6){
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+      resultSetCursor->resultSetCursor = nogdb::Traverse::allEdgeDfsCursor(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,classFilter->classFilter);
+      // ResultSetCursor Traverse::allEdgeDfsCursor(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const ClassFilter &classFilter)
+  } else if (info.Length()==7){
+      if(!pathFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_7)){
+          Nan::ThrowError("arg7: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe4.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
+
+      resultSetCursor->resultSetCursor = nogdb::Traverse::allEdgeDfsCursor(txn->txn,recordDesc->recordDescriptor,
+                                                        minDepth,maxDepth,pathFilter->pathFilter,
+                                                        classFilter->classFilter);
+      // ResultSetCursor Traverse::allEdgeDfsCursor(const Txn &txn,
+      //                                 const RecordDescriptor &recordDescriptor,
+      //                                 unsigned int minDepth,
+      //                                 unsigned int maxDepth,
+      //                                 const PathFilter &pathFilter,
+      //                                 const ClassFilter &classFilter)
+  }
 }
 
 void ShortestPath(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=6){
-        Nan::ThrowError("6 arguments required");
+  if(info.Length()!=6&&info.Length()!=5){
+        Nan::ThrowError("6 or 5 arguments required");
         return;
   }
   
@@ -860,14 +1171,6 @@ void ShortestPath(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     Nan::ThrowError("arg4: RecordDescriptor required");
     return;
   }
-  if(!pathFilterType->HasInstance(arg_5)){
-    Nan::ThrowError("arg5: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: classFilter required");
-    return;
-  }
 
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSet* resultSet = ObjectWrap::Unwrap<NogResultSet>(maybe1.ToLocalChecked());
@@ -881,18 +1184,52 @@ void ShortestPath(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
   NogRecordDescriptor* dstVertexRecordDesc = ObjectWrap::Unwrap<NogRecordDescriptor>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[4]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe5.ToLocalChecked());
+  if(info.Length()==5){
+      if(!classFilterType->HasInstance(arg_5)){
+          Nan::ThrowError("arg5: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[4]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe6 = Nan::To<v8::Object>(info[5]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe6.ToLocalChecked());
+      resultSet->resultSet = nogdb::Traverse::shortestPath(txn->txn,
+                                                        srcVertexRecordDesc->recordDescriptor,
+                                                        dstVertexRecordDesc->recordDescriptor,
+                                                        classFilter->classFilter);
+      // ResultSet Traverse::shortestPath(Txn &txn,
+      //                                            const RecordDescriptor &srcVertexRecordDescriptor,
+      //                                            const RecordDescriptor &dstVertexRecordDescriptor,
+      //                                            const ClassFilter &classFilter)
+  } else if (info.Length()==6){
+      if(!pathFilterType->HasInstance(arg_5)){
+          Nan::ThrowError("arg5: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[4]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe5.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe6 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe6.ToLocalChecked());
+
+      resultSet->resultSet = nogdb::Traverse::shortestPath(txn->txn,
+                                                        srcVertexRecordDesc->recordDescriptor,
+                                                        dstVertexRecordDesc->recordDescriptor,
+                                                        pathFilter->pathFilter,classFilter->classFilter);
+      // ResultSet Traverse::shortestPath(Txn &txn,
+      //                                            const RecordDescriptor &srcVertexRecordDescriptor,
+      //                                            const RecordDescriptor &dstVertexRecordDescriptor,
+      //                                            const PathFilter &pathFilter,
+      //                                            const ClassFilter &classFilter)
+  }
 }
 
 void ShortestPathCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  if(info.Length()!=6){
-        Nan::ThrowError("6 arguments required");
+  if(info.Length()!=6&&info.Length()!=5){
+        Nan::ThrowError("6 or 5 arguments required");
         return;
   }
   v8::Local<v8::FunctionTemplate> resultSetCursorType = Nan::New<v8::FunctionTemplate>(NogResultSetCursor::constructor);
@@ -924,14 +1261,6 @@ void ShortestPathCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     Nan::ThrowError("arg4: RecordDescriptor required");
     return;
   }
-  if(!pathFilterType->HasInstance(arg_5)){
-    Nan::ThrowError("arg5: PathFilter required");
-    return;
-  }
-  if(!classFilterType->HasInstance(arg_6)){
-    Nan::ThrowError("arg6: classFilter required");
-    return;
-  }
 
   Nan::MaybeLocal<v8::Object> maybe1 = Nan::To<v8::Object>(info[0]);
   NogResultSetCursor* resultSetCursor = ObjectWrap::Unwrap<NogResultSetCursor>(maybe1.ToLocalChecked());
@@ -945,13 +1274,47 @@ void ShortestPathCursor(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
   NogRecordDescriptor* dstVertexRecordDesc = ObjectWrap::Unwrap<NogRecordDescriptor>(maybe4.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[4]);
-  NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe5.ToLocalChecked());
+  if(info.Length()==5){
+      if(!classFilterType->HasInstance(arg_5)){
+          Nan::ThrowError("arg5: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[4]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
 
-  Nan::MaybeLocal<v8::Object> maybe6 = Nan::To<v8::Object>(info[5]);
-  NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe6.ToLocalChecked());
+      resultSetCursor->resultSetCursor = nogdb::Traverse::shortestPathCursor(txn->txn,
+                                                        srcVertexRecordDesc->recordDescriptor,
+                                                        dstVertexRecordDesc->recordDescriptor,
+                                                        classFilter->classFilter);
+      // ResultSetCursor Traverse::shortestPathCursor(Txn &txn,
+      //                                            const RecordDescriptor &srcVertexRecordDescriptor,
+      //                                            const RecordDescriptor &dstVertexRecordDescriptor,
+      //                                            const ClassFilter &classFilter)
+  } else if (info.Length()==6){
+      if(!pathFilterType->HasInstance(arg_5)){
+          Nan::ThrowError("arg5: PathFilter required");
+          return;
+      }
+      if(!classFilterType->HasInstance(arg_6)){
+          Nan::ThrowError("arg6: classFilter required");
+          return;
+      }
+      Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[4]);
+      NogPathFilter* pathFilter = ObjectWrap::Unwrap<NogPathFilter>(maybe5.ToLocalChecked());
 
-  // info.GetReturnValue().Set(num);
+      Nan::MaybeLocal<v8::Object> maybe6 = Nan::To<v8::Object>(info[5]);
+      NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe6.ToLocalChecked());
+
+      resultSetCursor->resultSetCursor = nogdb::Traverse::shortestPathCursor(txn->txn,
+                                                        srcVertexRecordDesc->recordDescriptor,
+                                                        dstVertexRecordDesc->recordDescriptor,
+                                                        pathFilter->pathFilter,classFilter->classFilter);
+      // ResultSetCursor Traverse::shortestPathCursor(Txn &txn,
+      //                                            const RecordDescriptor &srcVertexRecordDescriptor,
+      //                                            const RecordDescriptor &dstVertexRecordDescriptor,
+      //                                            const PathFilter &pathFilter,
+      //                                            const ClassFilter &classFilter)
+  }
 }
 
 
