@@ -1,0 +1,199 @@
+How to setup.
+
+const nogdb = require('./build/Release/nogdb');
+const class = require('./build/Release/class');
+const db = require('./build/Release/db');
+const edge = require('./build/Release/edge');
+const property = require('./build/Release/property');
+const traverse = require('./build/Release/traverse');
+const vertex = require('./build/Release/vertex');
+
+
+Class Operations - nogdb::Class
+
+    CREATE
+        
+        How to use.
+            class.create(classDescriptor,txn,name,type);  => 4arg
+
+        Description:
+            To create a new class.
+        
+        Parameters:
+            classDescriptor - A class descriptor of a created class.        : type ClassDescriptor object.  : it will be return 
+            txn - A database transaction.                                   : type Txn object.
+            name - A name of a class that will be created.                  : type String.
+            type - A type of a class. Note that there are two class types available ("VERTEX","vertex","EDGE","edge")   : type String.
+
+    CREATE EXTEND
+
+        How to use.
+            class.createExtend(classDescriptor,txn,className,superClassName);   => 4arg
+
+        Description:
+            To create a sub-class (aka. a derived class) of a super class (aka. a base class).
+
+        Parameters:
+            classDescriptor - A class descriptor of a created class.        : type ClassDescriptor object.  : it will be return 
+            txn - A database transaction.                                   : type Txn object.
+            className - A name of a sub-class that will be created.         : type String.
+            superClassName - A name of a super class that will be derived from.     : type String.
+
+    ALTER
+
+        How to use.
+            class.alter(txn,oldClassName,newClassName);     => 3arg
+
+        Description:
+            To modify a class name.
+
+        Parameters:
+            txn - A database transaction.                                   : type Txn object.
+            oldName - An old name of a class that will be changed from.     : type String.
+            newName - A new name of a class that will be changed to.        : type String.
+
+    DROP
+
+        How to use.
+            class.drop(txn,name);       => 2arg
+        
+        Description:
+            To drop a class.   
+
+        Parameters:
+            txn - A database transaction.                                   : type Txn object.
+            name - A name of a class that will be dropped.                  : type String.
+
+
+Property Operations - nogdb::Property
+
+    ADD
+
+        How to use.
+            property.add(propertyDescriptor,txn,className,propertyName,type);   => 5arg
+
+        Description:
+            To add a property to a class.
+
+        Parameters:
+            propertyDescriptor - A property descriptor of a created property.       : type PropertyDescriptor object.  : it will be return 
+            txn - A database transaction.                                           : type Txn object.
+            className - A name of a class that a property will be added into.       : type String.
+            propertyName - A name of a property that will be added.                 : type String.
+            type - A type of a property.                                            : type String.
+
+                Note:
+                    type => 
+                        Type Name	            Enum Value	                Range of Values
+
+                        signed 8-bit int        "TINYINT"                   -128 to 127
+                        unsigned 8-bit int      "UNSIGNED_TINYINT"          0 to 255
+                        signed 16-bit int       "SMALLINT"                  –32,768 to 32,767
+                        unsigned 16-bit int     "UNSIGNED_SMALLINT"         0 to 65,535
+                        signed 32-bit int       "INTEGER"                   –2,147,483,648 to 2,147,483,647
+                        unsigned 32-bit int     "UNSIGNED_INTEGER"          0 to 4,294,967,295
+                        signed 64-bit int       "BIGINT"                    –9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+                        unsigned 64-bit int     "UNSIGNED_BIGINT"           0 to 18,446,744,073,709,551,615
+                        varchar or string       "TEXT"                      no boundary
+                        double                  "REAL"                      1.7E +/- 308 (15 digits)
+                        Blob                    "BLOB"                      no boundary
+
+    ALTER
+
+        How to use.
+            property.alter(txn,className,oldName,newName);      => 4arg
+        
+        Description:
+            To modify a property’s name.
+
+        Parameters:
+            txn - A database transaction.                                           : type Txn object.
+            className - A name of a class to which a property currently belongs.    : type String.
+            oldName - An old name of a property that will be changed from.          : type String.
+            newName - A new name of a property that will be changed to.             : type String.
+
+    REMOVE
+
+        How to use.
+            property.remove(txn,className,propertyName);        => 3arg
+
+        Description:
+            To delete a property.
+
+        Parameters:
+            txn - A database transaction.                                           : type Txn object.
+            className - A name of a class to which a property currently belongs.    : type String.
+            propertyName - A name of an existing property that will be deleted.     : type String.
+
+    CREATE INDEX
+
+        How to use.
+            property.createIndex(txn,className,propertyName,isUnique);      => 4arg
+
+        Description:
+            To create an index on a specified property.
+
+        Parameters:
+            txn - A database transaction.                                           : type Txn object.
+            className - A name of a class to which a property currently belongs.    : type String.
+            propertyName - A name of an existing property that will be indexed.     : type String.
+            isUnique                                                                : type boolean
+
+    DROP INDEX
+
+        How to use.
+            property.dropIndex(txn,className,propertyName);     => 3arg
+
+        Description:
+            To drop an index on a specified property.
+
+        Parameters:
+            txn - A database transaction.                                           : type Txn object.
+            className - A name of a class to which a property currently belongs.    : type String.
+            propertyName - A name of an existing property with an index that will be removed.   : type String.
+
+Database Operations - nogdb::Db
+
+    GET DB INFO
+
+        How to use.
+            db.getDbInfo(dbInfo,txn);     => 2arg
+        
+        Description:
+            To retrieve a database (metadata) information.
+
+        Parameters:
+            dbInfo - A database information                                             : type DBInfo object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+
+    GET SCHEMA
+
+        How to use
+            db.getSchema(classDescriptor,txn,className);    => 2arg
+            or db.getSchema(classDescriptor,txn,classId);   => 2arg
+
+        Description:
+            To retrieve a schema information.
+
+        Parameters:
+            classDescriptor - A schema of a specified class.                            : type ClassDescriptor object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            className - A specified name of a class to be retrieved.                    : type String.
+            classId - An id of a class to be retrieved.                                 : type Number
+
+    GET RECORD
+
+        How to use.
+            db.getRecord(record,txn,recordDescriptor);
+
+        Description:
+            To get a record from a record descriptor.
+        
+        Parameters:
+            record - A record of a specified record descriptor.                         : type Record object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            recordDescriptor - A record descriptor.                                     : type RecordDescriptor object
+
+
+
+
