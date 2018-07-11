@@ -195,5 +195,306 @@ Database Operations - nogdb::Db
             recordDescriptor - A record descriptor.                                     : type RecordDescriptor object
 
 
+Vertex Operations - nogdb::Vertex
 
+    GET
+            
+        How to use.
+            vertex.get(resultSet,txn,className);    => 3arg
 
+        Description:
+            To get all vertices in specific classes.
+
+        Parameters:
+            resultSet - A set of results.                                               : type ResultSet object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            className - A class name as std::string of a vertex.                        : type String.
+
+    GET CURSOR
+
+        How to use.
+            vertex.getCursor(resultSetCursor,txn,className);    => 3arg
+
+        Description:
+            To get all vertices in specific classes.
+
+        Parameters:
+            resultSetCursor - A cursor of results.                                      : type ResultSetCursor object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            className - A class name as std::string of a vertex.                        : type String.
+
+    GET IN-EDGE
+
+        How to use.
+            vertex.getInEdge(resultSet,txn,className,classFilter);    => 4arg
+
+        Description:
+            To find edges which are incoming edges of a vertex.
+
+        Parameters:
+            resultSet - A set of results.                                               : type ResultSet object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            className - A class name as std::string of a vertex.                        : type String.
+            classFilter - A class filtering. If this parameter is specified,            : type classFilter object.
+                only edges with a given class name (or class names) 
+                will be returned (optional).
+
+    GET IN-EDGE CURSOR
+
+        How to use.
+            vertex.getInEdgeCursor(resultSetCursor,txn,className,classFilter);    => 4arg
+
+        Description:
+            To find edges which are incoming edges of a vertex.
+
+        Parameters:
+            resultSetCursor - A cursor of results.                                      : type ResultSetCursor object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            className - A class name as std::string of a vertex.                        : type String.
+            classFilter - A class filtering. If this parameter is specified,            : type classFilter object.
+                only edges with a given class name (or class names) 
+                will be returned (optional).
+
+    GET OUT-EDGE
+
+        How to use.
+            vertex.getOutEdge(resultSet,txn,className,classFilter);    => 4arg
+
+        Description:
+            To find edges which are incoming edges of a vertex.
+
+        Parameters:
+            resultSet - A set of results.                                               : type ResultSet object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            className - A class name as std::string of a vertex.                        : type String.
+            classFilter - A class filtering. If this parameter is specified,            : type classFilter object.
+                only edges with a given class name (or class names) 
+                will be returned (optional).
+
+    GET OUT-EDGE CURSOR
+
+        How to use.
+            vertex.getOutEdgeCursor(resultSetCursor,txn,className,classFilter);    => 4arg
+
+        Description:
+            To find edges which are outgoing edges of a vertex.
+
+        Parameters:
+            resultSetCursor - A cursor of results.                                      : type ResultSetCursor object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            className - A class name as std::string of a vertex.                        : type String.
+            classFilter - A class filtering. If this parameter is specified,            : type classFilter object.
+                only edges with a given class name (or class names) 
+                will be returned (optional).
+
+    GET ALL-EDGE
+
+        How to use.
+            vertex.getAllEdge(resultSet,txn,className,classFilter);    => 4arg
+
+        Description:
+            To find all edges (both direction) which are associated with a vertex.
+
+        Parameters:
+            resultSet - A set of results.                                               : type ResultSet object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            className - A class name as std::string of a vertex.                        : type String.
+            classFilter - A class filtering. If this parameter is specified,            : type classFilter object.
+                only edges with a given class name (or class names) 
+                will be returned (optional).
+
+    GET ALL-EDGE CURSOR
+
+        How to use.
+            vertex.getAllEdgeCursor(resultSetCursor,txn,className,classFilter);    => 4arg
+
+        Description:
+            To find all edges (both direction) which are associated with a vertex.
+
+        Parameters:
+            resultSetCursor - A cursor of results.                                      : type ResultSetCursor object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            className - A class name as std::string of a vertex.                        : type String.
+            classFilter - A class filtering. If this parameter is specified,            : type classFilter object.
+                only edges with a given class name (or class names) 
+                will be returned (optional).
+            
+    CREATE
+
+        How to use.
+            vertex.create(recordDescriptor,txn,className,record);   => 4arg
+
+        Description:
+            To create a vertex.
+        
+        Parameters:
+            recordDescriptor - A record descriptor of a created vertex.                 : type RecordDescriptor object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            className - A name of a class.                                              : type String.
+            record - A record object as nogdb::Record (can be empty if not specified).  : type Record object.
+
+    UPDATE
+
+        How to use.
+            vertex.update(txn,recordDescriptor,record);     => 3arg
+
+        Description:
+            To update a vertex.
+
+        Parameters:
+            txn - A database transaction.                                               : type Txn object.
+            recordDescriptor - A record descriptor.                                     : type RecordDescriptor object.
+            record - A new record object with modified properties and values.           : type Record object.
+
+    DESTROY
+
+        How to use.
+            vertex.destroy(txn,recordDescriptor);   => 2arg
+            or vertex.destroy(txn,className);       => 2arg
+
+        Description:
+            To delete a vertex or all vertices in the same class. All associated edges will be deleted as well.
+
+        Parameters:
+            txn - A database transaction.                                               : type Txn object.
+            recordDescriptor - A record descriptor.                                      : type RecordDescriptor object.
+            className - A class name of vertices that will be entirely deleted.         : type String.
+
+Edge Operations - nogdb::Edge
+
+    GET
+            
+        How to use.
+            edge.get(resultSet,txn,className);    => 3arg
+
+        Description:
+            To get all edges in a specific class.
+
+        Parameters:
+            resultSet - A set of results.                                               : type ResultSet object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            className - A class name as std::string of a vertex.                        : type String.
+
+    GET CURSOR
+
+        How to use.
+            edge.getCursor(resultSetCursor,txn,className);    => 3arg
+
+        Description:
+            To get all edges in a specific class.
+
+        Parameters:
+            resultSetCursor - A cursor of results.                                      : type ResultSetCursor object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            className - A class name as std::string of a vertex.                        : type String.
+
+    GET SOURCE
+            
+        How to use.
+            edge.getSrc(result,txn,recordDescriptor);    => 3arg
+
+        Description:
+            To find a vertex which is a source node of an out-edge.
+
+        Parameters:
+            result - A set of results.                                                  : type Result object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            recordDescriptor - A record descriptor of an out-edge.                      : type RecordDescriptor object.
+
+    GET DESTINATION
+            
+        How to use.
+            edge.getDst(result,txn,recordDescriptor);    => 3arg
+
+        Description:
+            To find a vertex which is a destination node of an in-edge.
+
+        Parameters:
+            result - A set of results.                                                  : type Result object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            recordDescriptor - A record descriptor of an out-edge.                      : type RecordDescriptor object.
+
+    GET SOURCE & DESTINATION
+            
+        How to use.
+            edge.getSrcDst(resultSet,txn,recordDescriptor);    => 3arg
+
+        Description:
+            To find both source and destication vertices which is associated with an interesting edge.
+
+        Parameters:
+            resultSet - A set of results.                                               : type ResultSet object.  : it will be return
+            txn - A database transaction.                                               : type Txn object.
+            recordDescriptor - A record descriptor of an interesting edge.              : type RecordDescriptor object.
+
+    CREATE
+
+        How to use.
+            edge.create(recordDescriptor,txn,srcVertexRecordDescriptor,dstVertexRecordDescriptor,record);   => 5arg
+
+        Description:
+            To create an edge.
+
+        Parameters:
+            recordDescriptor - A record descriptor of a created edge.                   : type RecordDescriptor object.  : it will be return
+            txn - A database transaction.                                               : type Txn object
+            srcVertexRecordDescriptor - A record descriptor of a source vertex.         : type RecordDescriptor object.
+            dstVertexRecordDescriptor - A record descriptor of a destinaton vertex.     : type RecordDescriptor object.
+            record - A record object as nogdb::Record (can be empty if not specified).  : type Record object.
+
+    UPDATE
+
+        How to use.
+            edge.update(txn,recordDescriptor,record);       => 3arg
+
+        Description:
+            To update an edge.
+
+        Parameters:
+            txn - A database transaction.                                               : type Txn object
+            recordDescriptor - A record descriptor.                                     : type RecordDescriptor object
+            record - A new record object with modified properties and values.           : type Record object
+
+    UPDATE SOURCE
+
+        How to use.
+            edge.updateSrc(txn,recordDescriptor,newSrcVertexRecordDescriptor);  => 3arg
+
+        Description:
+            To update a source vertex of an edge.
+
+        Parameters:
+            txn - A database transaction.                                               : type Txn object
+            recordDescriptor - A record descriptor of an edge itself.                   : type RecordDescriptor object
+            newSrcVertexRecordDescriptor - A record descriptor of a new source vertex.  : type RecordDescriptor object
+
+    UPDATE DESTINATION
+
+        How to use.
+            edge.updateDst(txn,recordDescriptor,newDstVertexRecordDescriptor);  => 3arg
+
+        Description:
+            To update a destination vertex of an edge.
+
+        Parameters:
+            txn - A database transaction.                                                       : type Txn object
+            recordDescriptor - A record descriptor of an edge itself.                           : type RecordDescriptor object
+            newDstVertexRecordDescriptor - A record descriptor of a new destination vertex.     : type RecordDescriptor object
+
+    DESTROY
+
+        How to use.
+            edge.destroy(txn,recordDescriptor);     => 2arg
+            or edge.destroy(txn,className);         => 2arg
+
+        Description:
+            To delete an edge or all edges in the same class.
+
+        Parameters:
+            txn - A database transaction.                                           : type Txn object
+            recordDescriptor - A record descriptor.                                 : type RecordDescriptor object
+            className - A class name of edges that will be entirely deleted.        : type  String
+
+Traverse (Graph) Operations - nogdb::Traverse
+
+    
