@@ -8,7 +8,7 @@ using namespace Nan;
 
 Nan::Persistent<v8::FunctionTemplate> NogCondition::constructor;
 
-NogCondition::NogCondition() {};
+NogCondition::NogCondition(std::string propertyName) :condition(propertyName) {};
 NogCondition::~NogCondition() {};
 
 NAN_MODULE_INIT(NogCondition::Init) {
@@ -21,7 +21,17 @@ NAN_MODULE_INIT(NogCondition::Init) {
 }
 
 NAN_METHOD(NogCondition::New) {
-      NogCondition* obj = new NogCondition();
-      obj->Wrap(info.This());
-      info.GetReturnValue().Set(info.This());
+    if(info.Length()!=1){
+        Nan::ThrowError("1 arguments required :( String )");
+        return;
+    }
+    if(!info[0]->IsString()){
+        Nan::ThrowError("arg1 string required");
+        return;
+    }
+    Nan::Utf8String val(info[0]->ToString());
+    std::string propertyName (*val);
+    NogCondition* obj = new NogCondition(propertyName);
+    obj->Wrap(info.This());
+    info.GetReturnValue().Set(info.This());
 }

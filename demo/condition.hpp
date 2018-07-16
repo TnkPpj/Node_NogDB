@@ -12,10 +12,10 @@ class NogCondition : public Nan::ObjectWrap {
         static NAN_MODULE_INIT(Init) ;
         static Persistent<v8::FunctionTemplate> constructor;
 
-        nogdb::Condition condition();
+        nogdb::Condition condition;
 
     private:
-        explicit NogCondition() ;
+        explicit NogCondition(std::string propertyName) ;
         ~NogCondition() ;
 
         static NAN_METHOD(New) ;

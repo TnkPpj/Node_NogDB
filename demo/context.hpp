@@ -1,5 +1,5 @@
-#ifndef CONTEXT_H
-#define CONTEXT_H
+#ifndef NODE_NOGDB_H
+#define NODE_NOGDB_H
 
 #include <nan.h>
 #include <nogdb/nogdb.h>
