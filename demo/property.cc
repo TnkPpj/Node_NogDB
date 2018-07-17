@@ -95,7 +95,7 @@ NAN_METHOD(NogProperty::Add) {
       else if(type=="BLOB")               proptype = nogdb::PropertyType::BLOB;
       else Nan::ThrowError("propertyType Invalid");
       // add property
-      propertyDescriptor->propertyDescriptor = nogdb::Property::add(txn->txn,className,propertyName,proptype);
+      propertyDescriptor->propertyDescriptor = nogdb::Property::add(*txn->txn,className,propertyName,proptype);
 }
 
 NAN_METHOD(NogProperty::Alter) {
@@ -136,7 +136,7 @@ NAN_METHOD(NogProperty::Alter) {
       Nan::Utf8String val3(info[3]->ToString());
       std::string newName (*val3);
       // alter property
-      nogdb::Property::alter(txn->txn,className,oldName,newName);
+      nogdb::Property::alter(*txn->txn,className,oldName,newName);
 }
 
 NAN_METHOD(NogProperty::Remove) {
@@ -170,7 +170,7 @@ NAN_METHOD(NogProperty::Remove) {
       Nan::Utf8String val2(info[2]->ToString());
       std::string propertyName (*val2);
       // remove property
-      nogdb::Property::remove(txn->txn,className,propertyName);
+      nogdb::Property::remove(*txn->txn,className,propertyName);
 }
 
 NAN_METHOD(NogProperty::CreateIndex) {
@@ -210,7 +210,7 @@ NAN_METHOD(NogProperty::CreateIndex) {
       }
       bool isUnique = info[3]->BooleanValue();
       // create index
-      nogdb::Property::createIndex(txn->txn,className,propertyName,isUnique);
+      nogdb::Property::createIndex(*txn->txn,className,propertyName,isUnique);
 }
 
 NAN_METHOD(NogProperty::DropIndex) {
@@ -244,5 +244,5 @@ NAN_METHOD(NogProperty::DropIndex) {
       Nan::Utf8String val2(info[2]->ToString());
       std::string propertyName (*val2);
       // drop index
-      nogdb::Property::dropIndex(txn->txn,className,propertyName);
+      nogdb::Property::dropIndex(*txn->txn,className,propertyName);
 }

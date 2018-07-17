@@ -91,7 +91,7 @@ NAN_METHOD(NogVertex::Create) {
     Nan::MaybeLocal<v8::Object> maybe3 = Nan::To<v8::Object>(info[3]);
     NogRecord* r = ObjectWrap::Unwrap<NogRecord>(maybe3.ToLocalChecked());
     // create vertex
-    recordDescriptor->recordDescriptor = nogdb::Vertex::create(txn->txn,className,r->record);
+    recordDescriptor->recordDescriptor = nogdb::Vertex::create(*txn->txn,className,r->record);
 }
 
 NAN_METHOD(NogVertex::Update) {
@@ -129,7 +129,7 @@ NAN_METHOD(NogVertex::Update) {
     Nan::MaybeLocal<v8::Object> maybe3 = Nan::To<v8::Object>(info[2]);
     NogRecord* r = ObjectWrap::Unwrap<NogRecord>(maybe3.ToLocalChecked());
     // update vertex
-    nogdb::Vertex::update(txn->txn,recordDesc->recordDescriptor,r->record);
+    nogdb::Vertex::update(*txn->txn,recordDesc->recordDescriptor,r->record);
 }
 
 NAN_METHOD(NogVertex::Destroy) {
@@ -159,12 +159,12 @@ NAN_METHOD(NogVertex::Destroy) {
         Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
         NogRecordDescriptor* recordDesc = ObjectWrap::Unwrap<NogRecordDescriptor>(maybe2.ToLocalChecked());
         // destroy vertex by recordDescriptor
-        nogdb::Vertex::destroy(txn->txn,recordDesc->recordDescriptor);
+        nogdb::Vertex::destroy(*txn->txn,recordDesc->recordDescriptor);
     }else if(info[1]->IsString()){
         Nan::Utf8String val(info[1]->ToString());
         std::string className (*val);
         // destroy vertex by className
-        nogdb::Vertex::destroy(txn->txn,className);        
+        nogdb::Vertex::destroy(*txn->txn,className);        
     }
 }
 
@@ -204,20 +204,20 @@ NAN_METHOD(NogVertex::Get) {
     Nan::Utf8String val(info[2]->ToString());
     std::string className (*val);
     // get vertex without condition
-    if(info.Length()==3)    resultSet->resultSet = nogdb::Vertex::get(txn->txn,className);
+    if(info.Length()==3)    resultSet->resultSet = nogdb::Vertex::get(*txn->txn,className);
     // get vertex with condition or multiCondition
     else if(info.Length()==4){
         // condition
         if(conditionType->HasInstance(arg_4)){
             Nan::MaybeLocal<v8::Object> maybe3 = Nan::To<v8::Object>(info[3]);
             NogCondition* condition = ObjectWrap::Unwrap<NogCondition>(maybe3.ToLocalChecked());
-            resultSet->resultSet = nogdb::Vertex::get(txn->txn,className,condition->condition);
+            resultSet->resultSet = nogdb::Vertex::get(*txn->txn,className,condition->condition);
         } 
         // // multiCondition
         // else if(multiConditionType->HasInstance(arg_4)){
         //     Nan::MaybeLocal<v8::Object> maybe3 = Nan::To<v8::Object>(info[3]);
         //     NogMultiCondition* MultiCondition = ObjectWrap::Unwrap<NogMultiCondition>(maybe3.ToLocalChecked());
-        //     resultSet->resultSet = nogdb::Vertex::get(txn->txn,className,multiCondition->multiCondition);
+        //     resultSet->resultSet = nogdb::Vertex::get(*txn->txn,className,multiCondition->multiCondition);
         // } 
         // type error
         else{
@@ -264,20 +264,20 @@ NAN_METHOD(NogVertex::GetCursor) {
     Nan::Utf8String val(info[2]->ToString());
     std::string className (*val);
     // getCursor vertex without condition
-    if(info.Length()==3)    resultSetCursor->resultSetCursor = nogdb::Vertex::getCursor(txn->txn,className);
+    if(info.Length()==3)    resultSetCursor->resultSetCursor = nogdb::Vertex::getCursor(*txn->txn,className);
     // getCursor vertex with condition or multiCondition
     else if(info.Length()==4){
         // condition
         if(conditionType->HasInstance(arg_4)){
             Nan::MaybeLocal<v8::Object> maybe3 = Nan::To<v8::Object>(info[3]);
             NogCondition* condition = ObjectWrap::Unwrap<NogCondition>(maybe3.ToLocalChecked());
-            resultSetCursor->resultSetCursor = nogdb::Vertex::getCursor(txn->txn,className,condition->condition);
+            resultSetCursor->resultSetCursor = nogdb::Vertex::getCursor(*txn->txn,className,condition->condition);
         } 
         // // multiCondition
         // else if(multiConditionType->HasInstance(arg_4)){
         //     Nan::MaybeLocal<v8::Object> maybe3 = Nan::To<v8::Object>(info[3]);
         //     NogMultiCondition* MultiCondition = ObjectWrap::Unwrap<NogMultiCondition>(maybe3.ToLocalChecked());
-        //     resultSetCursor->resultSetCursor = nogdb::Vertex::getCursor(txn->txn,className,multiCondition->multiCondition);
+        //     resultSetCursor->resultSetCursor = nogdb::Vertex::getCursor(*txn->txn,className,multiCondition->multiCondition);
         // } 
         // type error
         else{
@@ -335,7 +335,7 @@ NAN_METHOD(NogVertex::GetInEdge) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // getInEdge
-        resultSet->resultSet = nogdb::Vertex::getInEdge(txn->txn,recordDesc->recordDescriptor,classFilter->classFilter);
+        resultSet->resultSet = nogdb::Vertex::getInEdge(*txn->txn,recordDesc->recordDescriptor,classFilter->classFilter);
     }
     // getInEdge vertex with condition or multiCondition
     else if(info.Length()==5){
@@ -356,14 +356,14 @@ NAN_METHOD(NogVertex::GetInEdge) {
             Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
             NogCondition* condition = ObjectWrap::Unwrap<NogCondition>(maybe4.ToLocalChecked());
             // getInEdge
-            resultSet->resultSet = nogdb::Vertex::getInEdge(txn->txn,recordDesc->recordDescriptor,condition->condition,classFilter->classFilter);
+            resultSet->resultSet = nogdb::Vertex::getInEdge(*txn->txn,recordDesc->recordDescriptor,condition->condition,classFilter->classFilter);
         } 
         // // multiCondition
         // else if(multiConditionType->HasInstance(arg_4)){
         //     Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
         //     NogMultiCondition* MultiCondition = ObjectWrap::Unwrap<NogMultiCondition>(maybe4.ToLocalChecked());
         //     // getInEdge
-        //     resultSet->resultSet = nogdb::Vertex::getInEdge(txn->txn,recordDesc->recordDescriptor,multiCondition->multiCondition,classFilter->classFilter);
+        //     resultSet->resultSet = nogdb::Vertex::getInEdge(*txn->txn,recordDesc->recordDescriptor,multiCondition->multiCondition,classFilter->classFilter);
         // } 
     }
 }
@@ -416,7 +416,7 @@ NAN_METHOD(NogVertex::GetOutEdge) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // getOutEdge
-        resultSet->resultSet = nogdb::Vertex::getOutEdge(txn->txn,recordDesc->recordDescriptor,classFilter->classFilter);
+        resultSet->resultSet = nogdb::Vertex::getOutEdge(*txn->txn,recordDesc->recordDescriptor,classFilter->classFilter);
     }
     // getOutEdge vertex with condition or multiCondition
     else if(info.Length()==5){
@@ -437,14 +437,14 @@ NAN_METHOD(NogVertex::GetOutEdge) {
             Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
             NogCondition* condition = ObjectWrap::Unwrap<NogCondition>(maybe4.ToLocalChecked());
             // getOutEdge
-            resultSet->resultSet = nogdb::Vertex::getOutEdge(txn->txn,recordDesc->recordDescriptor,condition->condition,classFilter->classFilter);
+            resultSet->resultSet = nogdb::Vertex::getOutEdge(*txn->txn,recordDesc->recordDescriptor,condition->condition,classFilter->classFilter);
         } 
         // // multiCondition
         // else if(multiConditionType->HasInstance(arg_4)){
         //     Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
         //     NogMultiCondition* MultiCondition = ObjectWrap::Unwrap<NogMultiCondition>(maybe4.ToLocalChecked());
         //     // getOutEdge
-        //     resultSet->resultSet = nogdb::Vertex::getOutEdge(txn->txn,recordDesc->recordDescriptor,multiCondition->multiCondition,classFilter->classFilter);
+        //     resultSet->resultSet = nogdb::Vertex::getOutEdge(*txn->txn,recordDesc->recordDescriptor,multiCondition->multiCondition,classFilter->classFilter);
         // } 
     }
 }
@@ -497,7 +497,7 @@ NAN_METHOD(NogVertex::GetAllEdge) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // getAllEdge
-        resultSet->resultSet = nogdb::Vertex::getAllEdge(txn->txn,recordDesc->recordDescriptor,classFilter->classFilter);
+        resultSet->resultSet = nogdb::Vertex::getAllEdge(*txn->txn,recordDesc->recordDescriptor,classFilter->classFilter);
     }
     // getAllEdge vertex with condition or multiCondition
     else if(info.Length()==5){
@@ -518,14 +518,14 @@ NAN_METHOD(NogVertex::GetAllEdge) {
             Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
             NogCondition* condition = ObjectWrap::Unwrap<NogCondition>(maybe4.ToLocalChecked());
             // getAllEdge
-            resultSet->resultSet = nogdb::Vertex::getAllEdge(txn->txn,recordDesc->recordDescriptor,condition->condition,classFilter->classFilter);
+            resultSet->resultSet = nogdb::Vertex::getAllEdge(*txn->txn,recordDesc->recordDescriptor,condition->condition,classFilter->classFilter);
         } 
         // // multiCondition
         // else if(multiConditionType->HasInstance(arg_4)){
         //     Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
         //     NogMultiCondition* MultiCondition = ObjectWrap::Unwrap<NogMultiCondition>(maybe4.ToLocalChecked());
         //     // getAllEdge
-        //     resultSet->resultSet = nogdb::Vertex::getAllEdge(txn->txn,recordDesc->recordDescriptor,multiCondition->multiCondition,classFilter->classFilter);
+        //     resultSet->resultSet = nogdb::Vertex::getAllEdge(*txn->txn,recordDesc->recordDescriptor,multiCondition->multiCondition,classFilter->classFilter);
         // }
     }
 }
@@ -578,7 +578,7 @@ NAN_METHOD(NogVertex::GetInEdgeCursor) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // getInEdgeCursor
-        resultSetCursor->resultSetCursor = nogdb::Vertex::getInEdgeCursor(txn->txn,recordDesc->recordDescriptor,classFilter->classFilter);
+        resultSetCursor->resultSetCursor = nogdb::Vertex::getInEdgeCursor(*txn->txn,recordDesc->recordDescriptor,classFilter->classFilter);
     }
     // getInEdgeCursor vertex with condition or multiCondition
     else if(info.Length()==5){
@@ -599,14 +599,14 @@ NAN_METHOD(NogVertex::GetInEdgeCursor) {
             Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
             NogCondition* condition = ObjectWrap::Unwrap<NogCondition>(maybe4.ToLocalChecked());
             // getInEdgeCursor
-            resultSetCursor->resultSetCursor = nogdb::Vertex::getInEdgeCursor(txn->txn,recordDesc->recordDescriptor,condition->condition,classFilter->classFilter);
+            resultSetCursor->resultSetCursor = nogdb::Vertex::getInEdgeCursor(*txn->txn,recordDesc->recordDescriptor,condition->condition,classFilter->classFilter);
         } 
         // // multiCondition
         // else if(multiConditionType->HasInstance(arg_4)){
         //     Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
         //     NogMultiCondition* MultiCondition = ObjectWrap::Unwrap<NogMultiCondition>(maybe4.ToLocalChecked());
         //     // getInEdgeCursor
-        //     resultSetCursor->resultSetCursor = nogdb::Vertex::getInEdgeCursor(txn->txn,recordDesc->recordDescriptor,multiCondition->multiCondition,classFilter->classFilter);
+        //     resultSetCursor->resultSetCursor = nogdb::Vertex::getInEdgeCursor(*txn->txn,recordDesc->recordDescriptor,multiCondition->multiCondition,classFilter->classFilter);
         // } 
     }   
 }
@@ -659,7 +659,7 @@ NAN_METHOD(NogVertex::GetOutEdgeCursor) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // getOutEdgeCursor
-        resultSetCursor->resultSetCursor = nogdb::Vertex::getOutEdgeCursor(txn->txn,recordDesc->recordDescriptor,classFilter->classFilter);
+        resultSetCursor->resultSetCursor = nogdb::Vertex::getOutEdgeCursor(*txn->txn,recordDesc->recordDescriptor,classFilter->classFilter);
     }
     // getOutEdgeCursor vertex with condition or multiCondition
     else if(info.Length()==5){
@@ -680,14 +680,14 @@ NAN_METHOD(NogVertex::GetOutEdgeCursor) {
             Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
             NogCondition* condition = ObjectWrap::Unwrap<NogCondition>(maybe4.ToLocalChecked());
             // getOutEdgeCursor
-            resultSetCursor->resultSetCursor = nogdb::Vertex::getOutEdgeCursor(txn->txn,recordDesc->recordDescriptor,condition->condition,classFilter->classFilter);
+            resultSetCursor->resultSetCursor = nogdb::Vertex::getOutEdgeCursor(*txn->txn,recordDesc->recordDescriptor,condition->condition,classFilter->classFilter);
         } 
         // // multiCondition
         // else if(multiConditionType->HasInstance(arg_4)){
         //     Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
         //     NogMultiCondition* MultiCondition = ObjectWrap::Unwrap<NogMultiCondition>(maybe4.ToLocalChecked());
         //     // getOutEdgeCursor
-        //     resultSetCursor->resultSetCursor = nogdb::Vertex::getOutEdgeCursor(txn->txn,recordDesc->recordDescriptor,multiCondition->multiCondition,classFilter->classFilter);
+        //     resultSetCursor->resultSetCursor = nogdb::Vertex::getOutEdgeCursor(*txn->txn,recordDesc->recordDescriptor,multiCondition->multiCondition,classFilter->classFilter);
         // } 
     }   
 }
@@ -740,7 +740,7 @@ NAN_METHOD(NogVertex::GetAllEdgeCursor) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // getAllEdgeCursor
-        resultSetCursor->resultSetCursor = nogdb::Vertex::getAllEdgeCursor(txn->txn,recordDesc->recordDescriptor,classFilter->classFilter);
+        resultSetCursor->resultSetCursor = nogdb::Vertex::getAllEdgeCursor(*txn->txn,recordDesc->recordDescriptor,classFilter->classFilter);
     }
     // getAllEdgeCursor vertex with condition or multiCondition
     else if(info.Length()==5){
@@ -761,14 +761,14 @@ NAN_METHOD(NogVertex::GetAllEdgeCursor) {
             Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
             NogCondition* condition = ObjectWrap::Unwrap<NogCondition>(maybe4.ToLocalChecked());
             // getAllEdgeCursor
-            resultSetCursor->resultSetCursor = nogdb::Vertex::getAllEdgeCursor(txn->txn,recordDesc->recordDescriptor,condition->condition,classFilter->classFilter);
+            resultSetCursor->resultSetCursor = nogdb::Vertex::getAllEdgeCursor(*txn->txn,recordDesc->recordDescriptor,condition->condition,classFilter->classFilter);
         } 
         // // multiCondition
         // else if(multiConditionType->HasInstance(arg_4)){
         //     Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[3]);
         //     NogMultiCondition* MultiCondition = ObjectWrap::Unwrap<NogMultiCondition>(maybe4.ToLocalChecked());
         //     // getAllEdgeCursor
-        //     resultSetCursor->resultSetCursor = nogdb::Vertex::getAllEdgeCursor(txn->txn,recordDesc->recordDescriptor,multiCondition->multiCondition,classFilter->classFilter);
+        //     resultSetCursor->resultSetCursor = nogdb::Vertex::getAllEdgeCursor(*txn->txn,recordDesc->recordDescriptor,multiCondition->multiCondition,classFilter->classFilter);
         // } 
     }   
 }
@@ -813,13 +813,13 @@ NAN_METHOD(NogVertex::GetIndex) {
     if(conditionType->HasInstance(arg_4)){
         Nan::MaybeLocal<v8::Object> maybe3 = Nan::To<v8::Object>(info[3]);
         NogCondition* condition = ObjectWrap::Unwrap<NogCondition>(maybe3.ToLocalChecked());
-        resultSet->resultSet = nogdb::Vertex::getIndex(txn->txn,className,condition->condition);
+        resultSet->resultSet = nogdb::Vertex::getIndex(*txn->txn,className,condition->condition);
     } 
     // // multiCondition
     // else if(multiConditionType->HasInstance(arg_4)){
     //     Nan::MaybeLocal<v8::Object> maybe3 = Nan::To<v8::Object>(info[3]);
     //     NogMultiCondition* MultiCondition = ObjectWrap::Unwrap<NogMultiCondition>(maybe3.ToLocalChecked());
-    //     resultSet->resultSet = nogdb::Vertex::getIndex(txn->txn,className,multiCondition->multiCondition);
+    //     resultSet->resultSet = nogdb::Vertex::getIndex(*txn->txn,className,multiCondition->multiCondition);
     // } 
     // type error
     else{
@@ -869,13 +869,13 @@ NAN_METHOD(NogVertex::GetIndexCursor) {
     if(conditionType->HasInstance(arg_4)){
         Nan::MaybeLocal<v8::Object> maybe3 = Nan::To<v8::Object>(info[3]);
         NogCondition* condition = ObjectWrap::Unwrap<NogCondition>(maybe3.ToLocalChecked());
-        resultSetCursor->resultSetCursor = nogdb::Vertex::getIndexCursor(txn->txn,className,condition->condition);
+        resultSetCursor->resultSetCursor = nogdb::Vertex::getIndexCursor(*txn->txn,className,condition->condition);
     } 
     // // multiCondition
     // else if(multiConditionType->HasInstance(arg_4)){
     //     Nan::MaybeLocal<v8::Object> maybe3 = Nan::To<v8::Object>(info[3]);
     //     NogMultiCondition* MultiCondition = ObjectWrap::Unwrap<NogMultiCondition>(maybe3.ToLocalChecked());
-    //     resultSetCursor->resultSetCursor = nogdb::Vertex::getIndexCursor(txn->txn,className,multiCondition->multiCondition);
+    //     resultSetCursor->resultSetCursor = nogdb::Vertex::getIndexCursor(*txn->txn,className,multiCondition->multiCondition);
     // } 
     // type error
     else{

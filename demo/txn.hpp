@@ -11,10 +11,10 @@ class NogTxn : public Nan::ObjectWrap {
         static NAN_MODULE_INIT(Init) ;
         static Persistent<v8::FunctionTemplate> constructor;
 
-        nogdb::Txn txn;
+        std::shared_ptr<nogdb::Txn> txn;
 
     private:
-        explicit NogTxn(nogdb::Context ctx, const nogdb::Txn::Mode& mode) ;
+        explicit NogTxn(std::shared_ptr<nogdb::Txn> txn_) ;
         ~NogTxn() ;
 
         static NAN_METHOD(New) ;

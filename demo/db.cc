@@ -72,7 +72,7 @@ NAN_METHOD(NogDb::GetRecord) {
     Nan::MaybeLocal<v8::Object> maybe3 = Nan::To<v8::Object>(info[2]);
     NogRecordDescriptor* recordDesc = ObjectWrap::Unwrap<NogRecordDescriptor>(maybe3.ToLocalChecked());
     // getRecord
-    r->record = nogdb::Db::getRecord(txn->txn,recordDesc->recordDescriptor);
+    r->record = nogdb::Db::getRecord(*txn->txn,recordDesc->recordDescriptor);
 }
 
 
@@ -111,14 +111,14 @@ NAN_METHOD(NogDb::GetSchema) {
         Nan::Utf8String val(info[2]->ToString());
         std::string className (*val);
         // getSchema
-        classDesc->classDescriptor = nogdb::Db::getSchema(txn->txn,className);
+        classDesc->classDescriptor = nogdb::Db::getSchema(*txn->txn,className);
     }
     // classId
     else if(info[2]->IsInt32()){
         Nan::Maybe<int32_t> val = Nan::To<int32_t>(info[2]);
         int classId = val.FromJust();
         // getSchema
-        classDesc->classDescriptor = nogdb::Db::getSchema(txn->txn,classId);
+        classDesc->classDescriptor = nogdb::Db::getSchema(*txn->txn,classId);
     }
 }
 
@@ -148,5 +148,5 @@ NAN_METHOD(NogDb::GetDbInfo) {
     Nan::MaybeLocal<v8::Object> maybe2 = Nan::To<v8::Object>(info[1]);
     NogTxn* txn = ObjectWrap::Unwrap<NogTxn>(maybe2.ToLocalChecked());
     // getDbInfo
-    dbInfo->dbInfo = nogdb::Db::getDbInfo(txn->txn);
+    dbInfo->dbInfo = nogdb::Db::getDbInfo(*txn->txn);
 }

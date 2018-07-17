@@ -77,7 +77,7 @@ NAN_METHOD(NogClass::Create) {
       else  if(type=="EDGE"||type=="edge") classType = nogdb::ClassType::EDGE;
       else Nan::ThrowError("classType Invalid");
       // create class
-      classDescriptor->classDescriptor = nogdb::Class::create(txn->txn,name,classType);
+      classDescriptor->classDescriptor = nogdb::Class::create(*txn->txn,name,classType);
 }
 
 NAN_METHOD(NogClass::CreateExtend) {
@@ -120,7 +120,7 @@ NAN_METHOD(NogClass::CreateExtend) {
       Nan::Utf8String val2(info[3]->ToString());
       std::string superClassName (*val2);
       // create extendClass
-      classDescriptor->classDescriptor = nogdb::Class::createExtend(txn->txn,className,superClassName);
+      classDescriptor->classDescriptor = nogdb::Class::createExtend(*txn->txn,className,superClassName);
 }
 
 NAN_METHOD(NogClass::Drop) {
@@ -147,7 +147,7 @@ NAN_METHOD(NogClass::Drop) {
       Nan::Utf8String val(info[1]->ToString());
       std::string name (*val);
       // drop class
-      nogdb::Class::drop(txn->txn,name);
+      nogdb::Class::drop(*txn->txn,name);
 }
 
 NAN_METHOD(NogClass::Alter) {
@@ -181,5 +181,5 @@ NAN_METHOD(NogClass::Alter) {
       Nan::Utf8String val2(info[2]->ToString());
       std::string newClassName (*val2);
       // alter class
-      nogdb::Class::alter(txn->txn,oldClassName,newClassName);
+      nogdb::Class::alter(*txn->txn,oldClassName,newClassName);
 }

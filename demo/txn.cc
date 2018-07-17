@@ -8,7 +8,7 @@ using namespace Nan;
 
 Nan::Persistent<v8::FunctionTemplate> NogTxn::constructor;
 
-NogTxn::NogTxn(nogdb::Context ctx, const nogdb::Txn::Mode& mode) : txn(ctx,mode)  {};
+NogTxn::NogTxn(std::shared_ptr<nogdb::Txn> txn_) : txn(txn_)  {};
 NogTxn::~NogTxn() {};
 
 NAN_MODULE_INIT(NogTxn::Init) {
@@ -47,39 +47,41 @@ NAN_METHOD(NogTxn::New) {
     Nan::Utf8String val(info[1]->ToString());
     std::string str (*val);
     if(str=="READ_WRITE"){
-        NogTxn* obj2 = new NogTxn(ctx,nogdb::Txn::Mode::READ_WRITE);
+        std::shared_ptr<nogdb::Txn> txn_ = std::make_shared<nogdb::Txn>(ctx, nogdb::Txn::Mode::READ_WRITE);
+        NogTxn* obj2 = new NogTxn(txn_);
         obj2->Wrap(info.This());
-        info.GetReturnValue().Set(info.This());
+        info.GetReturnValue().Set(info.Holder());
     }else if(str=="READ_ONLY"){
-        NogTxn* obj2 = new NogTxn(ctx,nogdb::Txn::Mode::READ_ONLY);
+        std::shared_ptr<nogdb::Txn> txn_ = std::make_shared<nogdb::Txn>(ctx, nogdb::Txn::Mode::READ_ONLY);
+        NogTxn* obj2 = new NogTxn(txn_);
         obj2->Wrap(info.This());
-        info.GetReturnValue().Set(info.This());
+        info.GetReturnValue().Set(info.Holder());
     }
 }
   
 NAN_METHOD(NogTxn::commit) {
-    NogTxn* obj = ObjectWrap::Unwrap<NogTxn>(info.Holder());
-    obj->txn.commit();
+    NogTxn* obj = ObjectWrap::Unwrap<NogTxn>(info.This());
+    obj->txn->commit();
 }
 
 NAN_METHOD(NogTxn::rollback) {
-    NogTxn* obj = ObjectWrap::Unwrap<NogTxn>(info.Holder());
-    obj->txn.rollback();
+    NogTxn* obj = ObjectWrap::Unwrap<NogTxn>(info.This());
+    obj->txn->rollback();
 }
 
 NAN_METHOD(NogTxn::getTxnId) {
-    NogTxn* obj = ObjectWrap::Unwrap<NogTxn>(info.Holder());
-    int txnId =  obj->txn.getTxnId();
+    NogTxn* obj = ObjectWrap::Unwrap<NogTxn>(info.This());
+    int txnId =  obj->txn->getTxnId();
     info.GetReturnValue().Set(txnId);
 }
 
 NAN_METHOD(NogTxn::getVersionId) {
-    NogTxn* obj = ObjectWrap::Unwrap<NogTxn>(info.Holder());
-    int verId =  obj->txn.getVersionId();
+    NogTxn* obj = ObjectWrap::Unwrap<NogTxn>(info.This());
+    int verId =  obj->txn->getVersionId();
     info.GetReturnValue().Set(verId);
 }
   NAN_METHOD(NogTxn::getTxnMode) {
-    NogTxn* obj = ObjectWrap::Unwrap<NogTxn>(info.Holder());
-    int txnMode =  obj->txn.getTxnMode();
+    NogTxn* obj = ObjectWrap::Unwrap<NogTxn>(info.This());
+    int txnMode =  obj->txn->getTxnMode();
     info.GetReturnValue().Set(txnMode);
 }

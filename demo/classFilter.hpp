@@ -15,14 +15,15 @@ class NogClassFilter : public Nan::ObjectWrap {
         nogdb::ClassFilter classFilter;
 
     private:
-        explicit NogClassFilter() ;
+        explicit NogClassFilter(const std::set<std::string> &classNames_) ;
         ~NogClassFilter() ;
 
         static NAN_METHOD(New) ;
-        static NAN_METHOD(add) ;
-        static NAN_METHOD(remove) ;
-        static NAN_METHOD(size) ;
-        static NAN_METHOD(empty) ;
+        static NAN_METHOD(Add) ;
+        static NAN_METHOD(Remove) ;
+        static NAN_METHOD(Size) ;
+        static NAN_METHOD(Empty) ;
+        static NAN_METHOD(GetClassName);
 };
 
 #endif

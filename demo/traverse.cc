@@ -108,7 +108,7 @@ NAN_METHOD(NogTraverse::InEdgeBfs) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // traverse inEdgeBfs
-        resultSet->resultSet = nogdb::Traverse::inEdgeBfs(txn->txn,recordDesc->recordDescriptor,
+        resultSet->resultSet = nogdb::Traverse::inEdgeBfs(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,classFilter->classFilter);
     }
     // traverse inEdgeBfs classFilter & pathFilter
@@ -128,7 +128,7 @@ NAN_METHOD(NogTraverse::InEdgeBfs) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse inEdgeBfs
-        resultSet->resultSet = nogdb::Traverse::inEdgeBfs(txn->txn,recordDesc->recordDescriptor,
+        resultSet->resultSet = nogdb::Traverse::inEdgeBfs(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,pathFilter->pathFilter,
                                                             classFilter->classFilter);
     }
@@ -194,7 +194,7 @@ NAN_METHOD(NogTraverse::OutEdgeBfs) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // traverse outEdgeBfs
-        resultSet->resultSet = nogdb::Traverse::outEdgeBfs(txn->txn,recordDesc->recordDescriptor,
+        resultSet->resultSet = nogdb::Traverse::outEdgeBfs(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,classFilter->classFilter);
     }
     // traverse outEdgeBfs classFilter & pathFilter
@@ -214,7 +214,7 @@ NAN_METHOD(NogTraverse::OutEdgeBfs) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse outEdgeBfs
-        resultSet->resultSet = nogdb::Traverse::outEdgeBfs(txn->txn,recordDesc->recordDescriptor,
+        resultSet->resultSet = nogdb::Traverse::outEdgeBfs(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,pathFilter->pathFilter,
                                                             classFilter->classFilter);
     }
@@ -280,7 +280,7 @@ NAN_METHOD(NogTraverse::AllEdgeBfs) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // traverse allEdgeBfs
-        resultSet->resultSet = nogdb::Traverse::allEdgeBfs(txn->txn,recordDesc->recordDescriptor,
+        resultSet->resultSet = nogdb::Traverse::allEdgeBfs(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,classFilter->classFilter);
     }
     // traverse allEdgeBfs classFilter & pathFilter
@@ -300,7 +300,7 @@ NAN_METHOD(NogTraverse::AllEdgeBfs) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse allEdgeBfs
-        resultSet->resultSet = nogdb::Traverse::allEdgeBfs(txn->txn,recordDesc->recordDescriptor,
+        resultSet->resultSet = nogdb::Traverse::allEdgeBfs(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,pathFilter->pathFilter,
                                                             classFilter->classFilter);
     }
@@ -366,7 +366,7 @@ NAN_METHOD(NogTraverse::InEdgeDfs) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // traverse inEdgeDfs
-        resultSet->resultSet = nogdb::Traverse::inEdgeDfs(txn->txn,recordDesc->recordDescriptor,
+        resultSet->resultSet = nogdb::Traverse::inEdgeDfs(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,classFilter->classFilter);
     }
     // traverse inEdgeDfs classFilter & pathFilter
@@ -386,7 +386,7 @@ NAN_METHOD(NogTraverse::InEdgeDfs) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse inEdgeDfs
-        resultSet->resultSet = nogdb::Traverse::inEdgeDfs(txn->txn,recordDesc->recordDescriptor,
+        resultSet->resultSet = nogdb::Traverse::inEdgeDfs(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,pathFilter->pathFilter,
                                                             classFilter->classFilter);
     }
@@ -452,7 +452,7 @@ NAN_METHOD(NogTraverse::OutEdgeDfs) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // traverse OutEdgeDfs
-        resultSet->resultSet = nogdb::Traverse::outEdgeDfs(txn->txn,recordDesc->recordDescriptor,
+        resultSet->resultSet = nogdb::Traverse::outEdgeDfs(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,classFilter->classFilter);
     }
     // traverse OutEdgeDfs classFilter & pathFilter
@@ -472,7 +472,7 @@ NAN_METHOD(NogTraverse::OutEdgeDfs) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse OutEdgeDfs
-        resultSet->resultSet = nogdb::Traverse::outEdgeDfs(txn->txn,recordDesc->recordDescriptor,
+        resultSet->resultSet = nogdb::Traverse::outEdgeDfs(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,pathFilter->pathFilter,
                                                             classFilter->classFilter);
     }
@@ -538,7 +538,7 @@ NAN_METHOD(NogTraverse::AllEdgeDfs) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // traverse AllEdgeDfs
-        resultSet->resultSet = nogdb::Traverse::allEdgeDfs(txn->txn,recordDesc->recordDescriptor,
+        resultSet->resultSet = nogdb::Traverse::allEdgeDfs(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,classFilter->classFilter);
     }
     // traverse AllEdgeDfs classFilter & pathFilter
@@ -558,7 +558,7 @@ NAN_METHOD(NogTraverse::AllEdgeDfs) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse AllEdgeDfs
-        resultSet->resultSet = nogdb::Traverse::allEdgeDfs(txn->txn,recordDesc->recordDescriptor,
+        resultSet->resultSet = nogdb::Traverse::allEdgeDfs(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,pathFilter->pathFilter,
                                                             classFilter->classFilter);
     }
@@ -620,7 +620,7 @@ NAN_METHOD(NogTraverse::ShortestPath) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[4]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse shortestPath
-        resultSet->resultSet = nogdb::Traverse::shortestPath(txn->txn,
+        resultSet->resultSet = nogdb::Traverse::shortestPath(*txn->txn,
                                                             srcVertexRecordDesc->recordDescriptor,
                                                             dstVertexRecordDesc->recordDescriptor,
                                                             classFilter->classFilter);
@@ -642,7 +642,7 @@ NAN_METHOD(NogTraverse::ShortestPath) {
         Nan::MaybeLocal<v8::Object> maybe6 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe6.ToLocalChecked());
         // traverse shortestPath
-        resultSet->resultSet = nogdb::Traverse::shortestPath(txn->txn,
+        resultSet->resultSet = nogdb::Traverse::shortestPath(*txn->txn,
                                                             srcVertexRecordDesc->recordDescriptor,
                                                             dstVertexRecordDesc->recordDescriptor,
                                                             pathFilter->pathFilter,classFilter->classFilter);
@@ -709,7 +709,7 @@ NAN_METHOD(NogTraverse::InEdgeBfsCursor) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // traverse inEdgeBfsCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::inEdgeBfsCursor(txn->txn,recordDesc->recordDescriptor,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::inEdgeBfsCursor(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,classFilter->classFilter);
     }
     // traverse inEdgeBfsCursor classFilter & pathFilter
@@ -729,7 +729,7 @@ NAN_METHOD(NogTraverse::InEdgeBfsCursor) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse inEdgeBfsCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::inEdgeBfsCursor(txn->txn,recordDesc->recordDescriptor,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::inEdgeBfsCursor(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,pathFilter->pathFilter,
                                                             classFilter->classFilter);
     }
@@ -795,7 +795,7 @@ NAN_METHOD(NogTraverse::OutEdgeBfsCursor) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // traverse OutEdgeBfsCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::outEdgeBfsCursor(txn->txn,recordDesc->recordDescriptor,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::outEdgeBfsCursor(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,classFilter->classFilter);
     }
     // traverse OutEdgeBfsCursor classFilter & pathFilter
@@ -815,7 +815,7 @@ NAN_METHOD(NogTraverse::OutEdgeBfsCursor) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse outEdgeBfsCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::outEdgeBfsCursor(txn->txn,recordDesc->recordDescriptor,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::outEdgeBfsCursor(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,pathFilter->pathFilter,
                                                             classFilter->classFilter);
     }
@@ -881,7 +881,7 @@ NAN_METHOD(NogTraverse::AllEdgeBfsCursor) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // traverse allEdgeBfsCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::allEdgeBfsCursor(txn->txn,recordDesc->recordDescriptor,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::allEdgeBfsCursor(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,classFilter->classFilter);
     }
     // traverse allEdgeBfsCursor classFilter & pathFilter
@@ -901,7 +901,7 @@ NAN_METHOD(NogTraverse::AllEdgeBfsCursor) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse allEdgeBfsCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::allEdgeBfsCursor(txn->txn,recordDesc->recordDescriptor,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::allEdgeBfsCursor(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,pathFilter->pathFilter,
                                                             classFilter->classFilter);
     }
@@ -967,7 +967,7 @@ NAN_METHOD(NogTraverse::InEdgeDfsCursor) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // traverse inEdgeDfsCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::inEdgeDfsCursor(txn->txn,recordDesc->recordDescriptor,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::inEdgeDfsCursor(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,classFilter->classFilter);
     }
     // traverse inEdgeDfsCursor classFilter & pathFilter
@@ -987,7 +987,7 @@ NAN_METHOD(NogTraverse::InEdgeDfsCursor) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse inEdgeDfsCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::inEdgeDfsCursor(txn->txn,recordDesc->recordDescriptor,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::inEdgeDfsCursor(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,pathFilter->pathFilter,
                                                             classFilter->classFilter);
     }
@@ -1053,7 +1053,7 @@ NAN_METHOD(NogTraverse::OutEdgeDfsCursor) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // traverse outEdgeDfsCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::outEdgeDfsCursor(txn->txn,recordDesc->recordDescriptor,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::outEdgeDfsCursor(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,classFilter->classFilter);
     }
     // traverse outEdgeDfsCursor classFilter & pathFilter
@@ -1073,7 +1073,7 @@ NAN_METHOD(NogTraverse::OutEdgeDfsCursor) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse outEdgeDfsCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::outEdgeDfsCursor(txn->txn,recordDesc->recordDescriptor,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::outEdgeDfsCursor(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,pathFilter->pathFilter,
                                                             classFilter->classFilter);
     }
@@ -1139,7 +1139,7 @@ NAN_METHOD(NogTraverse::AllEdgeDfsCursor) {
         Nan::MaybeLocal<v8::Object> maybe4 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe4.ToLocalChecked());
         // traverse allEdgeDfsCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::allEdgeDfsCursor(txn->txn,recordDesc->recordDescriptor,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::allEdgeDfsCursor(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,classFilter->classFilter);
     }
     // traverse allEdgeDfsCursor classFilter & pathFilter
@@ -1159,7 +1159,7 @@ NAN_METHOD(NogTraverse::AllEdgeDfsCursor) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[6]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse allEdgeDfsCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::allEdgeDfsCursor(txn->txn,recordDesc->recordDescriptor,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::allEdgeDfsCursor(*txn->txn,recordDesc->recordDescriptor,
                                                             minDepth,maxDepth,pathFilter->pathFilter,
                                                             classFilter->classFilter);
     }
@@ -1220,7 +1220,7 @@ NAN_METHOD(NogTraverse::ShortestPathCursor) {
         Nan::MaybeLocal<v8::Object> maybe5 = Nan::To<v8::Object>(info[4]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe5.ToLocalChecked());
         // traverse shortestPathCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::shortestPathCursor(txn->txn,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::shortestPathCursor(*txn->txn,
                                                             srcVertexRecordDesc->recordDescriptor,
                                                             dstVertexRecordDesc->recordDescriptor,
                                                             classFilter->classFilter);
@@ -1242,7 +1242,7 @@ NAN_METHOD(NogTraverse::ShortestPathCursor) {
         Nan::MaybeLocal<v8::Object> maybe6 = Nan::To<v8::Object>(info[5]);
         NogClassFilter* classFilter = ObjectWrap::Unwrap<NogClassFilter>(maybe6.ToLocalChecked());
         // traverse shortestPathCursor
-        resultSetCursor->resultSetCursor = nogdb::Traverse::shortestPathCursor(txn->txn,
+        resultSetCursor->resultSetCursor = nogdb::Traverse::shortestPathCursor(*txn->txn,
                                                             srcVertexRecordDesc->recordDescriptor,
                                                             dstVertexRecordDesc->recordDescriptor,
                                                             pathFilter->pathFilter,classFilter->classFilter);
